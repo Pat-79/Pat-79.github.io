@@ -1,65 +1,77 @@
 ---
 layout: default
-title: tag posts
-searchtag: "blog"
+title: Tag Posts
+no_menu_item: true
 ---
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-{% capture temptags %}
+{%- capture temptags -%}
   {% for tag in site.tags %}
     {{ tag[0] }}#{{ tag[1].size | minus: 1 | times: stepsize | plus: minsize }}#{{ tag[1].size }}
   {% endfor %}
-{% endcapture %}
-{% assign sortedtemptags = temptags | split:' ' | sort %}
+{%- endcapture -%}
+{%- assign sortedtemptags = temptags | split:' ' | sort -%}
 <div class="post">
 <h1>Tag</h1>
 <p>
 [<a href="{{ page.url }}">No filter</a>] 
-{% for filtertemptag in sortedtemptags %}
-  {% assign filtertag = filtertemptag | split: '#' %}
- • [<a href="{{ page.url }}?searchtag={{ filtertag[0] }}">{{ filtertag[0] }}&nbsp;{{ filtertag[2] }}</a>] 
-{% endfor %}
+{%- for filtertemptag in sortedtemptags -%}
+  {%- assign filtertag = filtertemptag | split: '#' -%}
+ • [<a href="{{ page.url }}?tag={{ filtertag[0] }}">{{ filtertag[0] }}&nbsp;{{ filtertag[2] }}</a>] 
+{%- endfor -%}
 </p>
-{% for temptag in sortedtemptags %}
-  {% assign tag = temptag | split: '#' %}
+{%- for temptag in sortedtemptags -%}
+  {%- assign tag = temptag | split: '#' -%}
 
-  {% assign searchtag = tag[0] %}
+  {%- assign searchtag = tag[0] -%}
   <div class="tag_section hide_section" id="tag_{{searchtag}}" style="display: none">
   <h2>{{searchtag}} ({{ tag[2] }})</h2>
   <ul>
-  {% for post in site.posts %}
-    {% if post.tags contains searchtag %}
+  {%- for post in site.posts -%}
+    {%- if post.tags contains searchtag -%}
       <!--div class="tag_post"><a href="{{ post.url }}">{{ post.title }} | {{ post.url }}</a></div-->
-      <li class="tag_post"><a href="{{ post.url }}">{{ post.title }}</a></li>
-    {% endif %}
-  {% endfor %}
+      <li class="tag_post"><a href="{{ post.url }}">{{post.date | date_to_long_string}}: {{ post.title }}</a></li>
+    {%- endif -%}
+  {%- endfor -%}
   </ul>
   </div>
-{% endfor %}
+{%- endfor -%}
+  <div class="tag_section hide_section" id="not_exist" style="display: none">
+  <h2>Tag does not exist</h2>
+  <p>Unable to show the tag, as it does not exist.</p>
+  </div>
 </div>
 <script>
 const paramsString = window.location.search;
 const searchParams = new URLSearchParams(paramsString);
-const searchtag = searchParams.get("searchtag");
+const tag = searchParams.get("tag");
 
-if(searchtag)
+if(tag)
 {
-    if(searchtag == '*')
+	// We have a tag in the query string
+    if(tag == '*')
 	{
-		//$([id^=tag_section]).show();
-		$( ".tag_section" ).css( "display", "block" );
+		// The tag equals '*', display everything
+		$(".tag_section").css("display", "block");
 	}
 	else
 	{
-		const element = document.getElementById("tag_"+searchtag);
-		if(element)
+		// Select the element by the ID
+		const element = $("#tag_"+tag);
+		if(element.length > 0)
 		{
-			element.style.display="block";
-			//$( "#"+searchtag ).css( "display", "block" );
+			// We've found the element, now display it
+			element.css("display", "block");
+		}
+		else
+		{
+			// The tag doesn't exist. Show the 'error section' instead
+			$("#not_exist").css("display", "block");
 		}
 	}
 }
 else
 {
-	$( ".tag_section" ).css( "display", "block" );
+	// We do not have a tag in the query string, display everything
+	$(".tag_section").css("display", "block");
 }
 </script>

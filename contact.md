@@ -11,4 +11,4 @@ You can contact me on...
 blah blah
 
 ## Other
-https://awayfromhome.nl
+[awayfromhome.nl](https://awayfromhome.nl)

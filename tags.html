@@ -3,8 +3,8 @@ title: Tags
 layout: page
 ---
 
-{% assign minsize = 14 %}
-{% assign maxsize = 40 %}
+{% assign minsize = 12 %}
+{% assign maxsize = 44 %}
 {% assign minposts = 999999999999999 %}
 {% assign maxposts = 0 %}
 {% for tag in site.tags %}
@@ -28,12 +28,12 @@ layout: page
   {% endfor %}
 {% endcapture %}
 
-<div style="text-align: center; vertical-align: middle; line-height: 1.5; display: inline-block;">
+<div style="text-align: center; vertical-align: middle; line-height: 2; display: inline-block;">
 {% assign sortedtemptags = temptags | split:' ' | sort %}
 {%- for temptag in sortedtemptags -%}
   {% assign tagitems = temptag | split: '#' %}
   {%- capture tagsize -%}{{ tagitems[1] }} {%- endcapture -%}
   {%- capture tagname -%}{{ tagitems[0] }}{%- endcapture -%}
-  <a href="/tagposts.html?searchtag={{ tagname }}"><span class="highligher-rouge" style="font-size:{{ tagsize }}px; padding-left: 5px; padding-right:5px;"><nobr>{{ tagname }} ({{ tagitems[2] }})</nobr></span></a>
+  <a href="/tagposts.html?tag={{ tagname }}"><span class="highligher-rouge" style="vertical-align: middle; font-size:{{ tagsize }}px; padding: 7px; margin-left: 5px; margin-right:5px; background-color: rgba(127,127,255,0.1);border-radius: 20px;"><nobr>{{ tagname }} ({{ tagitems[2] }})</nobr></span></a>
 {% endfor %}
 </div>
