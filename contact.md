@@ -9,3 +9,6 @@ You can contact me on...
 
 ## Social
 blah blah
+
+## Other
+https://awayfromhome.nl
