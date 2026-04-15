@@ -4,7 +4,6 @@ description: A content site using a reusable custom Jekyll theme.
 url: ""
 baseurl: ""
 permalink: pretty
-theme: awayfromhome-theme
 default_post_image: /assets/images/post-hero-philippines.svg
 
 brand:
@@ -55,9 +54,6 @@ footer:
 
 theme_settings:
   default_theme: auto
-
-exclude:
-  - theme
 
 sass:
   sass_dir: _sass
