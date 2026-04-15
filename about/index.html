@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- SEO & Social Media Meta Tags --><!-- Document -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About | Away From Home</title>
 <meta name="color-scheme" content="light dark">
-<!-- SEO & Social Media Meta Tags --><!-- SEO & Search Engine Optimization -->
+<link rel="icon" type="image/svg+xml" href="/assets/images/logo-mark.svg">
+<link rel="shortcut icon" href="/assets/images/logo-mark.svg">
+<!-- SEO & Search Engine Optimization -->
 <meta name="description" content="A content site using a reusable custom Jekyll theme.">
 <meta name="author" content="Patrick">
 <meta name="keywords" content="">
@@ -79,12 +82,14 @@
 }
 </script>
 
-<link rel="icon" type="image/svg+xml" href="/assets/images/logo-mark.svg">
-<link rel="shortcut icon" href="/assets/images/logo-mark.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap"></noscript>
+
 <script>
+  // Inline theme detection — must run before CSS to prevent flash of wrong theme.
   (function () {
     var savedTheme = localStorage.getItem("afh-theme");
     var defaultTheme = "auto";
@@ -97,7 +102,9 @@
     }
   }());
 </script>
-<link rel="stylesheet" href="/assets/css/main.css">
+
+<link rel="stylesheet" href="/assets/css/main.css?v=1776288352">
+
 </head>
 <body class="layout-default has-page-image">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -105,11 +112,11 @@
   <div class="menu-drawer__inner">
     <div class="menu-drawer__top-controls">
   <div class="theme-switch theme-switch--drawer-top" role="group" aria-label="Color theme">
-    <button class="theme-switch__option" type="button" data-theme-option="auto" aria-pressed="false" aria-label="Use system theme" title="Auto">
+    <button class="theme-switch__option" type="button" data-theme-option="auto" aria-pressed="false" aria-label="Use system theme" title="System">
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="1em" height="1em">
-  <use href="/assets/images/icons.svg#icon-theme-auto"></use>
+  <use href="/assets/images/icons.svg#icon-theme-system"></use>
 </svg>
-      <span class="sr-only">Auto theme</span>
+      <span class="sr-only">System theme</span>
     </button>
     <button class="theme-switch__option" type="button" data-theme-option="light" aria-pressed="false" aria-label="Use light theme" title="Light">
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="1em" height="1em">
@@ -141,69 +148,76 @@
 
   <section class="menu-section">
     <h2>TAGS</h2><div class="tag-cloud tag-cloud--scaled tag-cloud--drawer"><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
         href="/tags/?tag=asia"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">asia</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
+        href="/tags/?tag=bonaire"
+        data-drawer-link
+      >
+        <span class="tag-chip__label">bonaire</span></a><a
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
+        href="/tags/?tag=carribean"
+        data-drawer-link
+      >
+        <span class="tag-chip__label">carribean</span></a><a
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
+        href="/tags/?tag=diving"
+        data-drawer-link
+      >
+        <span class="tag-chip__label">diving</span></a><a
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
         href="/tags/?tag=europe"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">europe</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-3"
         href="/tags/?tag=island"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">island</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
         href="/tags/?tag=lake"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">lake</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
         href="/tags/?tag=mountains"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">mountains</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
         href="/tags/?tag=roadtrip"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">roadtrip</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
+        href="/tags/?tag=scuba"
+        data-drawer-link
+      >
+        <span class="tag-chip__label">scuba</span></a><a
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
         href="/tags/?tag=sea"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">sea</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
+        href="/tags/?tag=summer"
+        data-drawer-link
+      >
+        <span class="tag-chip__label">summer</span></a><a
+        class="tag-chip tag-chip--cloud tag-chip--size-3"
         href="/tags/?tag=tropical"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">tropical</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-6"
         href="/tags/?tag=vacation"
-        style="--tag-size: 19;"
         data-drawer-link
       >
         <span class="tag-chip__label">vacation</span></a></div></section>
-
-  <section class="menu-section">
-    <h2>ARCHIVE</h2>
-    <ul class="menu-list">
-        <li><a href="/archive/2026/04/" data-drawer-link>April 2026</a></li>
-        <li><a href="/archive/2026/03/" data-drawer-link>March 2026</a></li>
-        <li><a href="/archive/2026/02/" data-drawer-link>February 2026</a></li>
-    </ul>
-  </section>
 
   <section class="menu-section">
     <h2>SOCIAL MEDIA</h2><div class="social-links social-links--drawer">
@@ -212,7 +226,7 @@
 </svg>
         <span class="sr-only">instagram (opens in a new tab)</span>
       </a>
-      <a class="social-link" href="https://www.youtube.com/@-Away-From-Home-/videos" target="_blank" rel="noopener noreferrer"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="1em" height="1em">
+      <a class="social-link" href="https://www.youtube.com/@-Away-From-Home-" target="_blank" rel="noopener noreferrer"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="1em" height="1em">
   <use href="/assets/images/icons.svg#icon-youtube"></use>
 </svg>
         <span class="sr-only">youtube (opens in a new tab)</span>
@@ -229,12 +243,17 @@
   </button>
 </div>
   </section>
+
+
+  <section class="menu-section">
+    <h2>ARCHIVE</h2>
+    <ul class="menu-list"><li><a href="/2026/04" data-drawer-link>April 2026</a></li><li><a href="/2020/12" data-drawer-link>December 2020</a></li></ul>
+  </section>
 </div>
   </div>
 </aside>
 <div class="menu-backdrop" data-menu-close></div>
-<div class="site-shell" data-site-shell>
-  <header class="site-header">
+<div class="site-shell" data-site-shell><header class="site-header">
   <div class="site-header__inner">
     <a class="site-brand" href="/" aria-label="awayfromhome.nl">
         <img class="site-brand__logo" src="/assets/images/logo-mark.svg" alt="" width="40" height="40">
@@ -256,14 +275,11 @@
     </button>
   </div>
 </header>
-  
-    <section class="page-header-image">
-      <div class="page-header-image__media" style="background-image: url('/assets/images/page-hero-about.svg');"></div>
-      <div class="container page-header-image__content">
-        <h1 class="page-header-image__title">About</h1>
-      </div>
-    </section>
-  
+  <header class="post-hero"><div class="post-hero__media">
+      <img class="post-hero__media-image" src="/assets/images/page-hero-about.svg" alt="" loading="eager" decoding="async">
+    </div><div class="post-hero__content container"><h1>About</h1></div>
+</header>
+
   <main class="page-content" id="main-content" aria-label="Content" tabindex="-1">
     <section class="page-section">
   <div class="container page-copy">
@@ -295,7 +311,7 @@
 </svg>
         <span class="sr-only">instagram (opens in a new tab)</span>
       </a>
-      <a class="social-link" href="https://www.youtube.com/@-Away-From-Home-/videos" target="_blank" rel="noopener noreferrer"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="1em" height="1em">
+      <a class="social-link" href="https://www.youtube.com/@-Away-From-Home-" target="_blank" rel="noopener noreferrer"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="1em" height="1em">
   <use href="/assets/images/icons.svg#icon-youtube"></use>
 </svg>
         <span class="sr-only">youtube (opens in a new tab)</span>
@@ -315,5 +331,8 @@
 </footer>
 </div>
 <script src="/assets/js/theme.js" defer></script>
+
+
+
 </body>
 </html>

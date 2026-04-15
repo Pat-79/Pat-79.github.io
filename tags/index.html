@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- SEO & Social Media Meta Tags --><!-- Document -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tags | Away From Home</title>
 <meta name="color-scheme" content="light dark">
-<!-- SEO & Social Media Meta Tags --><!-- SEO & Search Engine Optimization -->
+<link rel="icon" type="image/svg+xml" href="/assets/images/logo-mark.svg">
+<link rel="shortcut icon" href="/assets/images/logo-mark.svg">
+<!-- SEO & Search Engine Optimization -->
 <meta name="description" content="A content site using a reusable custom Jekyll theme.">
 <meta name="author" content="Patrick">
 <meta name="keywords" content="">
@@ -79,12 +82,14 @@
 }
 </script>
 
-<link rel="icon" type="image/svg+xml" href="/assets/images/logo-mark.svg">
-<link rel="shortcut icon" href="/assets/images/logo-mark.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap"></noscript>
+
 <script>
+  // Inline theme detection — must run before CSS to prevent flash of wrong theme.
   (function () {
     var savedTheme = localStorage.getItem("afh-theme");
     var defaultTheme = "auto";
@@ -97,7 +102,9 @@
     }
   }());
 </script>
-<link rel="stylesheet" href="/assets/css/main.css">
+
+<link rel="stylesheet" href="/assets/css/main.css?v=1776288352">
+
 </head>
 <body class="layout-tag-index has-page-image">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -105,11 +112,11 @@
   <div class="menu-drawer__inner">
     <div class="menu-drawer__top-controls">
   <div class="theme-switch theme-switch--drawer-top" role="group" aria-label="Color theme">
-    <button class="theme-switch__option" type="button" data-theme-option="auto" aria-pressed="false" aria-label="Use system theme" title="Auto">
+    <button class="theme-switch__option" type="button" data-theme-option="auto" aria-pressed="false" aria-label="Use system theme" title="System">
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="1em" height="1em">
-  <use href="/assets/images/icons.svg#icon-theme-auto"></use>
+  <use href="/assets/images/icons.svg#icon-theme-system"></use>
 </svg>
-      <span class="sr-only">Auto theme</span>
+      <span class="sr-only">System theme</span>
     </button>
     <button class="theme-switch__option" type="button" data-theme-option="light" aria-pressed="false" aria-label="Use light theme" title="Light">
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="1em" height="1em">
@@ -141,69 +148,76 @@
 
   <section class="menu-section">
     <h2>TAGS</h2><div class="tag-cloud tag-cloud--scaled tag-cloud--drawer"><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
         href="/tags/?tag=asia"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">asia</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
+        href="/tags/?tag=bonaire"
+        data-drawer-link
+      >
+        <span class="tag-chip__label">bonaire</span></a><a
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
+        href="/tags/?tag=carribean"
+        data-drawer-link
+      >
+        <span class="tag-chip__label">carribean</span></a><a
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
+        href="/tags/?tag=diving"
+        data-drawer-link
+      >
+        <span class="tag-chip__label">diving</span></a><a
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
         href="/tags/?tag=europe"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">europe</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-3"
         href="/tags/?tag=island"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">island</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
         href="/tags/?tag=lake"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">lake</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
         href="/tags/?tag=mountains"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">mountains</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
         href="/tags/?tag=roadtrip"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">roadtrip</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
+        href="/tags/?tag=scuba"
+        data-drawer-link
+      >
+        <span class="tag-chip__label">scuba</span></a><a
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
         href="/tags/?tag=sea"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">sea</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-1"
+        href="/tags/?tag=summer"
+        data-drawer-link
+      >
+        <span class="tag-chip__label">summer</span></a><a
+        class="tag-chip tag-chip--cloud tag-chip--size-3"
         href="/tags/?tag=tropical"
-        style="--tag-size: 13;"
         data-drawer-link
       >
         <span class="tag-chip__label">tropical</span></a><a
-        class="tag-chip tag-chip--cloud"
+        class="tag-chip tag-chip--cloud tag-chip--size-6"
         href="/tags/?tag=vacation"
-        style="--tag-size: 19;"
         data-drawer-link
       >
         <span class="tag-chip__label">vacation</span></a></div></section>
-
-  <section class="menu-section">
-    <h2>ARCHIVE</h2>
-    <ul class="menu-list">
-        <li><a href="/archive/2026/04/" data-drawer-link>April 2026</a></li>
-        <li><a href="/archive/2026/03/" data-drawer-link>March 2026</a></li>
-        <li><a href="/archive/2026/02/" data-drawer-link>February 2026</a></li>
-    </ul>
-  </section>
 
   <section class="menu-section">
     <h2>SOCIAL MEDIA</h2><div class="social-links social-links--drawer">
@@ -212,7 +226,7 @@
 </svg>
         <span class="sr-only">instagram (opens in a new tab)</span>
       </a>
-      <a class="social-link" href="https://www.youtube.com/@-Away-From-Home-/videos" target="_blank" rel="noopener noreferrer"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="1em" height="1em">
+      <a class="social-link" href="https://www.youtube.com/@-Away-From-Home-" target="_blank" rel="noopener noreferrer"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="1em" height="1em">
   <use href="/assets/images/icons.svg#icon-youtube"></use>
 </svg>
         <span class="sr-only">youtube (opens in a new tab)</span>
@@ -229,12 +243,17 @@
   </button>
 </div>
   </section>
+
+
+  <section class="menu-section">
+    <h2>ARCHIVE</h2>
+    <ul class="menu-list"><li><a href="/2026/04" data-drawer-link>April 2026</a></li><li><a href="/2020/12" data-drawer-link>December 2020</a></li></ul>
+  </section>
 </div>
   </div>
 </aside>
 <div class="menu-backdrop" data-menu-close></div>
-<div class="site-shell" data-site-shell>
-  <header class="site-header">
+<div class="site-shell" data-site-shell><header class="site-header">
   <div class="site-header__inner">
     <a class="site-brand" href="/" aria-label="awayfromhome.nl">
         <img class="site-brand__logo" src="/assets/images/logo-mark.svg" alt="" width="40" height="40">
@@ -256,14 +275,11 @@
     </button>
   </div>
 </header>
-  
-    <section class="page-header-image">
-      <div class="page-header-image__media" style="background-image: url('/assets/images/page-hero-tags.svg');"></div>
-      <div class="container page-header-image__content">
-        <h1 class="page-header-image__title">Tags</h1>
-      </div>
-    </section>
-  
+  <header class="post-hero"><div class="post-hero__media">
+      <img class="post-hero__media-image" src="/assets/images/page-hero-tags.svg" alt="" loading="eager" decoding="async">
+    </div><div class="post-hero__content container"><h1>Tags</h1></div>
+</header>
+
   <main class="page-content" id="main-content" aria-label="Content" tabindex="-1">
     <section class="page-section">
   <div class="container page-copy">
@@ -273,33 +289,48 @@
       <a class="tag-chip tag-chip--cloud tag-filter-chip" href="/tags/" data-tag-filter-link data-tag-value="all">
         <span class="tag-chip__label">All</span>
       </a>
-      <div class="tag-cloud tag-cloud--scaled tag-cloud--filters-list"><a class="tag-chip tag-chip--cloud tag-filter-chip" href="/tags/?tag=asia" style="--tag-size: 14;" data-tag-filter-link data-tag-value="asia">
+      <div class="tag-cloud tag-cloud--scaled tag-cloud--filters-list"><a class="tag-chip tag-chip--cloud tag-filter-chip tag-chip--size-1" href="/tags/?tag=asia" data-tag-filter-link data-tag-value="asia">
             <span class="tag-chip__label">asia</span>
             <span class="tag-chip__count">1</span>
-          </a><a class="tag-chip tag-chip--cloud tag-filter-chip" href="/tags/?tag=europe" style="--tag-size: 14;" data-tag-filter-link data-tag-value="europe">
+          </a><a class="tag-chip tag-chip--cloud tag-filter-chip tag-chip--size-1" href="/tags/?tag=bonaire" data-tag-filter-link data-tag-value="bonaire">
+            <span class="tag-chip__label">bonaire</span>
+            <span class="tag-chip__count">1</span>
+          </a><a class="tag-chip tag-chip--cloud tag-filter-chip tag-chip--size-1" href="/tags/?tag=carribean" data-tag-filter-link data-tag-value="carribean">
+            <span class="tag-chip__label">carribean</span>
+            <span class="tag-chip__count">1</span>
+          </a><a class="tag-chip tag-chip--cloud tag-filter-chip tag-chip--size-1" href="/tags/?tag=diving" data-tag-filter-link data-tag-value="diving">
+            <span class="tag-chip__label">diving</span>
+            <span class="tag-chip__count">1</span>
+          </a><a class="tag-chip tag-chip--cloud tag-filter-chip tag-chip--size-1" href="/tags/?tag=europe" data-tag-filter-link data-tag-value="europe">
             <span class="tag-chip__label">europe</span>
             <span class="tag-chip__count">1</span>
-          </a><a class="tag-chip tag-chip--cloud tag-filter-chip" href="/tags/?tag=island" style="--tag-size: 14;" data-tag-filter-link data-tag-value="island">
+          </a><a class="tag-chip tag-chip--cloud tag-filter-chip tag-chip--size-3" href="/tags/?tag=island" data-tag-filter-link data-tag-value="island">
             <span class="tag-chip__label">island</span>
-            <span class="tag-chip__count">1</span>
-          </a><a class="tag-chip tag-chip--cloud tag-filter-chip" href="/tags/?tag=lake" style="--tag-size: 14;" data-tag-filter-link data-tag-value="lake">
+            <span class="tag-chip__count">2</span>
+          </a><a class="tag-chip tag-chip--cloud tag-filter-chip tag-chip--size-1" href="/tags/?tag=lake" data-tag-filter-link data-tag-value="lake">
             <span class="tag-chip__label">lake</span>
             <span class="tag-chip__count">1</span>
-          </a><a class="tag-chip tag-chip--cloud tag-filter-chip" href="/tags/?tag=mountains" style="--tag-size: 14;" data-tag-filter-link data-tag-value="mountains">
+          </a><a class="tag-chip tag-chip--cloud tag-filter-chip tag-chip--size-1" href="/tags/?tag=mountains" data-tag-filter-link data-tag-value="mountains">
             <span class="tag-chip__label">mountains</span>
             <span class="tag-chip__count">1</span>
-          </a><a class="tag-chip tag-chip--cloud tag-filter-chip" href="/tags/?tag=roadtrip" style="--tag-size: 14;" data-tag-filter-link data-tag-value="roadtrip">
+          </a><a class="tag-chip tag-chip--cloud tag-filter-chip tag-chip--size-1" href="/tags/?tag=roadtrip" data-tag-filter-link data-tag-value="roadtrip">
             <span class="tag-chip__label">roadtrip</span>
             <span class="tag-chip__count">1</span>
-          </a><a class="tag-chip tag-chip--cloud tag-filter-chip" href="/tags/?tag=sea" style="--tag-size: 14;" data-tag-filter-link data-tag-value="sea">
+          </a><a class="tag-chip tag-chip--cloud tag-filter-chip tag-chip--size-1" href="/tags/?tag=scuba" data-tag-filter-link data-tag-value="scuba">
+            <span class="tag-chip__label">scuba</span>
+            <span class="tag-chip__count">1</span>
+          </a><a class="tag-chip tag-chip--cloud tag-filter-chip tag-chip--size-1" href="/tags/?tag=sea" data-tag-filter-link data-tag-value="sea">
             <span class="tag-chip__label">sea</span>
             <span class="tag-chip__count">1</span>
-          </a><a class="tag-chip tag-chip--cloud tag-filter-chip" href="/tags/?tag=tropical" style="--tag-size: 14;" data-tag-filter-link data-tag-value="tropical">
-            <span class="tag-chip__label">tropical</span>
+          </a><a class="tag-chip tag-chip--cloud tag-filter-chip tag-chip--size-1" href="/tags/?tag=summer" data-tag-filter-link data-tag-value="summer">
+            <span class="tag-chip__label">summer</span>
             <span class="tag-chip__count">1</span>
-          </a><a class="tag-chip tag-chip--cloud tag-filter-chip" href="/tags/?tag=vacation" style="--tag-size: 28;" data-tag-filter-link data-tag-value="vacation">
-            <span class="tag-chip__label">vacation</span>
+          </a><a class="tag-chip tag-chip--cloud tag-filter-chip tag-chip--size-3" href="/tags/?tag=tropical" data-tag-filter-link data-tag-value="tropical">
+            <span class="tag-chip__label">tropical</span>
             <span class="tag-chip__count">2</span>
+          </a><a class="tag-chip tag-chip--cloud tag-filter-chip tag-chip--size-6" href="/tags/?tag=vacation" data-tag-filter-link data-tag-value="vacation">
+            <span class="tag-chip__label">vacation</span>
+            <span class="tag-chip__count">3</span>
           </a></div>
     </div>
     <p class="tag-posts__status" data-tag-status hidden></p>
@@ -307,83 +338,250 @@
 </section>
 
 <section class="page-section">
-  <div class="container tag-index" data-tag-posts-page>
-    <div class="story-list"><section class="intro-card tag-section" id="tag-asia" data-tag-section data-tag-value="asia" data-tag-label="asia">
-          <p class="tag-section__eyebrow">Tag</p>
-          <h2>asia</h2>
-          <p class="tag-section__summary">1 post</p>
-          <ul class="tag-section__list"><li>
-                <a href="/2026/04/14/exploring-central-visayas/">Exploring Central Visayas, the Philippines</a>
-                <span class="tag-section__date">14 April 2026</span>
-              </li></ul>
-        </section><section class="intro-card tag-section" id="tag-europe" data-tag-section data-tag-value="europe" data-tag-label="europe">
-          <p class="tag-section__eyebrow">Tag</p>
-          <h2>europe</h2>
-          <p class="tag-section__summary">1 post</p>
-          <ul class="tag-section__list"><li>
-                <a href="/2026/04/12/slovenia-lakes-and-light/">Slovenia, Lakes and Late Light</a>
-                <span class="tag-section__date">12 April 2026</span>
-              </li></ul>
-        </section><section class="intro-card tag-section" id="tag-island" data-tag-section data-tag-value="island" data-tag-label="island">
-          <p class="tag-section__eyebrow">Tag</p>
-          <h2>island</h2>
-          <p class="tag-section__summary">1 post</p>
-          <ul class="tag-section__list"><li>
-                <a href="/2026/04/14/exploring-central-visayas/">Exploring Central Visayas, the Philippines</a>
-                <span class="tag-section__date">14 April 2026</span>
-              </li></ul>
-        </section><section class="intro-card tag-section" id="tag-lake" data-tag-section data-tag-value="lake" data-tag-label="lake">
-          <p class="tag-section__eyebrow">Tag</p>
-          <h2>lake</h2>
-          <p class="tag-section__summary">1 post</p>
-          <ul class="tag-section__list"><li>
-                <a href="/2026/04/12/slovenia-lakes-and-light/">Slovenia, Lakes and Late Light</a>
-                <span class="tag-section__date">12 April 2026</span>
-              </li></ul>
-        </section><section class="intro-card tag-section" id="tag-mountains" data-tag-section data-tag-value="mountains" data-tag-label="mountains">
-          <p class="tag-section__eyebrow">Tag</p>
-          <h2>mountains</h2>
-          <p class="tag-section__summary">1 post</p>
-          <ul class="tag-section__list"><li>
-                <a href="/2026/04/12/slovenia-lakes-and-light/">Slovenia, Lakes and Late Light</a>
-                <span class="tag-section__date">12 April 2026</span>
-              </li></ul>
-        </section><section class="intro-card tag-section" id="tag-roadtrip" data-tag-section data-tag-value="roadtrip" data-tag-label="roadtrip">
-          <p class="tag-section__eyebrow">Tag</p>
-          <h2>roadtrip</h2>
-          <p class="tag-section__summary">1 post</p>
-          <ul class="tag-section__list"><li>
-                <a href="/2026/04/12/slovenia-lakes-and-light/">Slovenia, Lakes and Late Light</a>
-                <span class="tag-section__date">12 April 2026</span>
-              </li></ul>
-        </section><section class="intro-card tag-section" id="tag-sea" data-tag-section data-tag-value="sea" data-tag-label="sea">
-          <p class="tag-section__eyebrow">Tag</p>
-          <h2>sea</h2>
-          <p class="tag-section__summary">1 post</p>
-          <ul class="tag-section__list"><li>
-                <a href="/2026/04/14/exploring-central-visayas/">Exploring Central Visayas, the Philippines</a>
-                <span class="tag-section__date">14 April 2026</span>
-              </li></ul>
-        </section><section class="intro-card tag-section" id="tag-tropical" data-tag-section data-tag-value="tropical" data-tag-label="tropical">
-          <p class="tag-section__eyebrow">Tag</p>
-          <h2>tropical</h2>
-          <p class="tag-section__summary">1 post</p>
-          <ul class="tag-section__list"><li>
-                <a href="/2026/04/14/exploring-central-visayas/">Exploring Central Visayas, the Philippines</a>
-                <span class="tag-section__date">14 April 2026</span>
-              </li></ul>
-        </section><section class="intro-card tag-section" id="tag-vacation" data-tag-section data-tag-value="vacation" data-tag-label="vacation">
-          <p class="tag-section__eyebrow">Tag</p>
-          <h2>vacation</h2>
-          <p class="tag-section__summary">2 posts</p>
-          <ul class="tag-section__list"><li>
-                <a href="/2026/04/14/exploring-central-visayas/">Exploring Central Visayas, the Philippines</a>
-                <span class="tag-section__date">14 April 2026</span>
-              </li><li>
-                <a href="/2026/04/12/slovenia-lakes-and-light/">Slovenia, Lakes and Late Light</a>
-                <span class="tag-section__date">12 April 2026</span>
-              </li></ul>
-        </section><section class="intro-card tag-section tag-section--missing" data-tag-not-found hidden>
+  <div class="container tag-index" data-tag-posts-page><section class="page-section page-section--spaced tag-section" id="tag-asia" data-tag-section data-tag-value="asia" data-tag-label="asia">
+        <div class="story-list">
+          <div class="home-section-head">
+            <p class="tag-section__eyebrow">Tag</p>
+            <h2>asia</h2>
+            <p class="tag-section__summary">1 post</p>
+          </div><a class="story-card" href="/2026/04/14/exploring-central-visayas/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/post-hero-philippines.svg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">April 14, 2026 · Patrick</p>
+                <h2>Exploring Central Visayas, the Philippines 🇵🇭</h2>
+                <p class="story-card__excerpt">A first pass through Central Visayas, using Cebu as the entry point and slowing down enough to notice the islands around it.</p><p class="story-card__read-more">Read more...</p></div>
+            </a></div>
+      </section><section class="page-section page-section--spaced tag-section" id="tag-bonaire" data-tag-section data-tag-value="bonaire" data-tag-label="bonaire">
+        <div class="story-list">
+          <div class="home-section-head">
+            <p class="tag-section__eyebrow">Tag</p>
+            <h2>bonaire</h2>
+            <p class="tag-section__summary">1 post</p>
+          </div><a class="story-card" href="/2020/12/10/diving-in-bonaire/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/blog/2020-12-10/bonaire_squid_0_0.jpg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">December 10, 2020 · Patrick</p>
+                <h2>Diving in Bonaire 🇧🇶 🏴󠁢󠁱󠁢󠁯󠁿</h2>
+                <p class="story-card__excerpt">During covid, when traveling was something that needed quite a bit of extra planning, I managed to book myself on a trip to the tropical Carribean island of Bonaire. Located about 40km north of Venazuela, Bonaire is part of the ABC islands (Aruba (most westwards), Bonaire (most eastwards) and Curacao (the middle island).</p><p class="story-card__read-more">Read more...</p></div>
+            </a></div>
+      </section><section class="page-section page-section--spaced tag-section" id="tag-carribean" data-tag-section data-tag-value="carribean" data-tag-label="carribean">
+        <div class="story-list">
+          <div class="home-section-head">
+            <p class="tag-section__eyebrow">Tag</p>
+            <h2>carribean</h2>
+            <p class="tag-section__summary">1 post</p>
+          </div><a class="story-card" href="/2020/12/10/diving-in-bonaire/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/blog/2020-12-10/bonaire_squid_0_0.jpg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">December 10, 2020 · Patrick</p>
+                <h2>Diving in Bonaire 🇧🇶 🏴󠁢󠁱󠁢󠁯󠁿</h2>
+                <p class="story-card__excerpt">During covid, when traveling was something that needed quite a bit of extra planning, I managed to book myself on a trip to the tropical Carribean island of Bonaire. Located about 40km north of Venazuela, Bonaire is part of the ABC islands (Aruba (most westwards), Bonaire (most eastwards) and Curacao (the middle island).</p><p class="story-card__read-more">Read more...</p></div>
+            </a></div>
+      </section><section class="page-section page-section--spaced tag-section" id="tag-diving" data-tag-section data-tag-value="diving" data-tag-label="diving">
+        <div class="story-list">
+          <div class="home-section-head">
+            <p class="tag-section__eyebrow">Tag</p>
+            <h2>diving</h2>
+            <p class="tag-section__summary">1 post</p>
+          </div><a class="story-card" href="/2020/12/10/diving-in-bonaire/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/blog/2020-12-10/bonaire_squid_0_0.jpg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">December 10, 2020 · Patrick</p>
+                <h2>Diving in Bonaire 🇧🇶 🏴󠁢󠁱󠁢󠁯󠁿</h2>
+                <p class="story-card__excerpt">During covid, when traveling was something that needed quite a bit of extra planning, I managed to book myself on a trip to the tropical Carribean island of Bonaire. Located about 40km north of Venazuela, Bonaire is part of the ABC islands (Aruba (most westwards), Bonaire (most eastwards) and Curacao (the middle island).</p><p class="story-card__read-more">Read more...</p></div>
+            </a></div>
+      </section><section class="page-section page-section--spaced tag-section" id="tag-europe" data-tag-section data-tag-value="europe" data-tag-label="europe">
+        <div class="story-list">
+          <div class="home-section-head">
+            <p class="tag-section__eyebrow">Tag</p>
+            <h2>europe</h2>
+            <p class="tag-section__summary">1 post</p>
+          </div><a class="story-card" href="/2026/04/12/slovenia-lakes-and-light/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/post-hero-slovenia.svg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">April 12, 2026 · Patrick</p>
+                <h2>Slovenia, Lakes and Late Light 🇸🇮</h2>
+                <p class="story-card__excerpt">A quieter route through Slovenia, following the lakes and staying long enough for the light to change.</p><p class="story-card__read-more">Read more...</p></div>
+            </a></div>
+      </section><section class="page-section page-section--spaced tag-section" id="tag-island" data-tag-section data-tag-value="island" data-tag-label="island">
+        <div class="story-list">
+          <div class="home-section-head">
+            <p class="tag-section__eyebrow">Tag</p>
+            <h2>island</h2>
+            <p class="tag-section__summary">2 posts</p>
+          </div><a class="story-card" href="/2026/04/14/exploring-central-visayas/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/post-hero-philippines.svg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">April 14, 2026 · Patrick</p>
+                <h2>Exploring Central Visayas, the Philippines 🇵🇭</h2>
+                <p class="story-card__excerpt">A first pass through Central Visayas, using Cebu as the entry point and slowing down enough to notice the islands around it.</p><p class="story-card__read-more">Read more...</p></div>
+            </a><a class="story-card" href="/2020/12/10/diving-in-bonaire/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/blog/2020-12-10/bonaire_squid_0_0.jpg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">December 10, 2020 · Patrick</p>
+                <h2>Diving in Bonaire 🇧🇶 🏴󠁢󠁱󠁢󠁯󠁿</h2>
+                <p class="story-card__excerpt">During covid, when traveling was something that needed quite a bit of extra planning, I managed to book myself on a trip to the tropical Carribean island of Bonaire. Located about 40km north of Venazuela, Bonaire is part of the ABC islands (Aruba (most westwards), Bonaire (most eastwards) and Curacao (the middle island).</p><p class="story-card__read-more">Read more...</p></div>
+            </a></div>
+      </section><section class="page-section page-section--spaced tag-section" id="tag-lake" data-tag-section data-tag-value="lake" data-tag-label="lake">
+        <div class="story-list">
+          <div class="home-section-head">
+            <p class="tag-section__eyebrow">Tag</p>
+            <h2>lake</h2>
+            <p class="tag-section__summary">1 post</p>
+          </div><a class="story-card" href="/2026/04/12/slovenia-lakes-and-light/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/post-hero-slovenia.svg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">April 12, 2026 · Patrick</p>
+                <h2>Slovenia, Lakes and Late Light 🇸🇮</h2>
+                <p class="story-card__excerpt">A quieter route through Slovenia, following the lakes and staying long enough for the light to change.</p><p class="story-card__read-more">Read more...</p></div>
+            </a></div>
+      </section><section class="page-section page-section--spaced tag-section" id="tag-mountains" data-tag-section data-tag-value="mountains" data-tag-label="mountains">
+        <div class="story-list">
+          <div class="home-section-head">
+            <p class="tag-section__eyebrow">Tag</p>
+            <h2>mountains</h2>
+            <p class="tag-section__summary">1 post</p>
+          </div><a class="story-card" href="/2026/04/12/slovenia-lakes-and-light/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/post-hero-slovenia.svg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">April 12, 2026 · Patrick</p>
+                <h2>Slovenia, Lakes and Late Light 🇸🇮</h2>
+                <p class="story-card__excerpt">A quieter route through Slovenia, following the lakes and staying long enough for the light to change.</p><p class="story-card__read-more">Read more...</p></div>
+            </a></div>
+      </section><section class="page-section page-section--spaced tag-section" id="tag-roadtrip" data-tag-section data-tag-value="roadtrip" data-tag-label="roadtrip">
+        <div class="story-list">
+          <div class="home-section-head">
+            <p class="tag-section__eyebrow">Tag</p>
+            <h2>roadtrip</h2>
+            <p class="tag-section__summary">1 post</p>
+          </div><a class="story-card" href="/2026/04/12/slovenia-lakes-and-light/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/post-hero-slovenia.svg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">April 12, 2026 · Patrick</p>
+                <h2>Slovenia, Lakes and Late Light 🇸🇮</h2>
+                <p class="story-card__excerpt">A quieter route through Slovenia, following the lakes and staying long enough for the light to change.</p><p class="story-card__read-more">Read more...</p></div>
+            </a></div>
+      </section><section class="page-section page-section--spaced tag-section" id="tag-scuba" data-tag-section data-tag-value="scuba" data-tag-label="scuba">
+        <div class="story-list">
+          <div class="home-section-head">
+            <p class="tag-section__eyebrow">Tag</p>
+            <h2>scuba</h2>
+            <p class="tag-section__summary">1 post</p>
+          </div><a class="story-card" href="/2020/12/10/diving-in-bonaire/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/blog/2020-12-10/bonaire_squid_0_0.jpg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">December 10, 2020 · Patrick</p>
+                <h2>Diving in Bonaire 🇧🇶 🏴󠁢󠁱󠁢󠁯󠁿</h2>
+                <p class="story-card__excerpt">During covid, when traveling was something that needed quite a bit of extra planning, I managed to book myself on a trip to the tropical Carribean island of Bonaire. Located about 40km north of Venazuela, Bonaire is part of the ABC islands (Aruba (most westwards), Bonaire (most eastwards) and Curacao (the middle island).</p><p class="story-card__read-more">Read more...</p></div>
+            </a></div>
+      </section><section class="page-section page-section--spaced tag-section" id="tag-sea" data-tag-section data-tag-value="sea" data-tag-label="sea">
+        <div class="story-list">
+          <div class="home-section-head">
+            <p class="tag-section__eyebrow">Tag</p>
+            <h2>sea</h2>
+            <p class="tag-section__summary">1 post</p>
+          </div><a class="story-card" href="/2026/04/14/exploring-central-visayas/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/post-hero-philippines.svg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">April 14, 2026 · Patrick</p>
+                <h2>Exploring Central Visayas, the Philippines 🇵🇭</h2>
+                <p class="story-card__excerpt">A first pass through Central Visayas, using Cebu as the entry point and slowing down enough to notice the islands around it.</p><p class="story-card__read-more">Read more...</p></div>
+            </a></div>
+      </section><section class="page-section page-section--spaced tag-section" id="tag-summer" data-tag-section data-tag-value="summer" data-tag-label="summer">
+        <div class="story-list">
+          <div class="home-section-head">
+            <p class="tag-section__eyebrow">Tag</p>
+            <h2>summer</h2>
+            <p class="tag-section__summary">1 post</p>
+          </div><a class="story-card" href="/2020/12/10/diving-in-bonaire/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/blog/2020-12-10/bonaire_squid_0_0.jpg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">December 10, 2020 · Patrick</p>
+                <h2>Diving in Bonaire 🇧🇶 🏴󠁢󠁱󠁢󠁯󠁿</h2>
+                <p class="story-card__excerpt">During covid, when traveling was something that needed quite a bit of extra planning, I managed to book myself on a trip to the tropical Carribean island of Bonaire. Located about 40km north of Venazuela, Bonaire is part of the ABC islands (Aruba (most westwards), Bonaire (most eastwards) and Curacao (the middle island).</p><p class="story-card__read-more">Read more...</p></div>
+            </a></div>
+      </section><section class="page-section page-section--spaced tag-section" id="tag-tropical" data-tag-section data-tag-value="tropical" data-tag-label="tropical">
+        <div class="story-list">
+          <div class="home-section-head">
+            <p class="tag-section__eyebrow">Tag</p>
+            <h2>tropical</h2>
+            <p class="tag-section__summary">2 posts</p>
+          </div><a class="story-card" href="/2026/04/14/exploring-central-visayas/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/post-hero-philippines.svg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">April 14, 2026 · Patrick</p>
+                <h2>Exploring Central Visayas, the Philippines 🇵🇭</h2>
+                <p class="story-card__excerpt">A first pass through Central Visayas, using Cebu as the entry point and slowing down enough to notice the islands around it.</p><p class="story-card__read-more">Read more...</p></div>
+            </a><a class="story-card" href="/2020/12/10/diving-in-bonaire/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/blog/2020-12-10/bonaire_squid_0_0.jpg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">December 10, 2020 · Patrick</p>
+                <h2>Diving in Bonaire 🇧🇶 🏴󠁢󠁱󠁢󠁯󠁿</h2>
+                <p class="story-card__excerpt">During covid, when traveling was something that needed quite a bit of extra planning, I managed to book myself on a trip to the tropical Carribean island of Bonaire. Located about 40km north of Venazuela, Bonaire is part of the ABC islands (Aruba (most westwards), Bonaire (most eastwards) and Curacao (the middle island).</p><p class="story-card__read-more">Read more...</p></div>
+            </a></div>
+      </section><section class="page-section page-section--spaced tag-section" id="tag-vacation" data-tag-section data-tag-value="vacation" data-tag-label="vacation">
+        <div class="story-list">
+          <div class="home-section-head">
+            <p class="tag-section__eyebrow">Tag</p>
+            <h2>vacation</h2>
+            <p class="tag-section__summary">3 posts</p>
+          </div><a class="story-card" href="/2026/04/14/exploring-central-visayas/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/post-hero-philippines.svg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">April 14, 2026 · Patrick</p>
+                <h2>Exploring Central Visayas, the Philippines 🇵🇭</h2>
+                <p class="story-card__excerpt">A first pass through Central Visayas, using Cebu as the entry point and slowing down enough to notice the islands around it.</p><p class="story-card__read-more">Read more...</p></div>
+            </a><a class="story-card" href="/2026/04/12/slovenia-lakes-and-light/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/post-hero-slovenia.svg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">April 12, 2026 · Patrick</p>
+                <h2>Slovenia, Lakes and Late Light 🇸🇮</h2>
+                <p class="story-card__excerpt">A quieter route through Slovenia, following the lakes and staying long enough for the light to change.</p><p class="story-card__read-more">Read more...</p></div>
+            </a><a class="story-card" href="/2020/12/10/diving-in-bonaire/">
+              <div class="story-card__media">
+                <img class="story-card__media-image" src="/assets/images/blog/2020-12-10/bonaire_squid_0_0.jpg" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="story-card__body">
+                <p class="story-card__meta">December 10, 2020 · Patrick</p>
+                <h2>Diving in Bonaire 🇧🇶 🏴󠁢󠁱󠁢󠁯󠁿</h2>
+                <p class="story-card__excerpt">During covid, when traveling was something that needed quite a bit of extra planning, I managed to book myself on a trip to the tropical Carribean island of Bonaire. Located about 40km north of Venazuela, Bonaire is part of the ABC islands (Aruba (most westwards), Bonaire (most eastwards) and Curacao (the middle island).</p><p class="story-card__read-more">Read more...</p></div>
+            </a></div>
+      </section><div class="story-list">
+      <section class="intro-card tag-section tag-section--missing" data-tag-not-found hidden>
         <p class="tag-section__eyebrow">Tag</p>
         <h2>Tag does not exist</h2>
         <p class="tag-section__summary">Unable to show the requested tag because it does not exist in this site.</p>
@@ -407,7 +605,7 @@
 </svg>
         <span class="sr-only">instagram (opens in a new tab)</span>
       </a>
-      <a class="social-link" href="https://www.youtube.com/@-Away-From-Home-/videos" target="_blank" rel="noopener noreferrer"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="1em" height="1em">
+      <a class="social-link" href="https://www.youtube.com/@-Away-From-Home-" target="_blank" rel="noopener noreferrer"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="1em" height="1em">
   <use href="/assets/images/icons.svg#icon-youtube"></use>
 </svg>
         <span class="sr-only">youtube (opens in a new tab)</span>
@@ -427,5 +625,10 @@
 </footer>
 </div>
 <script src="/assets/js/theme.js" defer></script>
+
+
+
+<script src="/assets/js/tag-index.js" defer></script>
+
 </body>
 </html>

@@ -26,8 +26,13 @@
   </symbol>
 
   <symbol id="icon-theme-auto" viewBox="0 0 24 24">
-    <path d="M12 5.2v13.6M5.2 12h13.6M7.2 7.2l9.6 9.6M16.8 7.2l-9.6 9.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-    <circle cx="12" cy="12" r="2.9" fill="none" stroke="currentColor" stroke-width="1.7"/>
+    <rect x="4" y="5" width="16" height="11.5" rx="1.8" ry="1.8" fill="none" stroke="currentColor" stroke-width="1.7"/>
+    <path d="M9.3 19h5.4M12 16.5V19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="icon-theme-system" viewBox="0 0 24 24">
+    <rect x="4" y="5" width="16" height="11.5" rx="1.8" ry="1.8" fill="none" stroke="currentColor" stroke-width="1.7"/>
+    <path d="M9.3 19h5.4M12 16.5V19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
   </symbol>
 
   <symbol id="icon-theme-light" viewBox="0 0 24 24">

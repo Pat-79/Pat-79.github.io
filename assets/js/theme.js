@@ -20,7 +20,7 @@
   var drawerLinks = document.querySelectorAll("[data-drawer-link]");
   var shareButtons = document.querySelectorAll("[data-share-button]");
   
-  // Theme selector options (auto/light/dark)
+  // Theme selector options (system/light/dark)
   var themeOptions = document.querySelectorAll("[data-theme-option]");
   
   // Header and hero elements for scroll-based behavior
@@ -57,6 +57,79 @@
   }
 
   /**
+   * Wrap flag-glyph sequences in text nodes with span.flag-glyph so we can
+   * apply tiny outline/shadow styling to color flag glyphs reliably.
+   */
+  function wrapFlagGlyphs(rootNode) {
+    if (!rootNode || !window.NodeFilter) {
+      return;
+    }
+
+    var flagPattern = /(?:[\u{1F1E6}-\u{1F1FF}]{2}|[\u{1F3F3}\u{1F3F4}](?:\uFE0F)?(?:\u200D[\u{1F308}\u{26A7}\u{2620}\u{1F998}](?:\uFE0F)?|[\u{E0061}-\u{E007A}\u{E0030}-\u{E0039}]{2,6}\u{E007F})?)/gu;
+    var walker = document.createTreeWalker(rootNode, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (node) {
+        if (!node || !node.parentElement) {
+          return NodeFilter.FILTER_REJECT;
+        }
+
+        var parentTag = node.parentElement.tagName;
+        if (parentTag === "SCRIPT" || parentTag === "STYLE" || parentTag === "NOSCRIPT" || parentTag === "TEXTAREA" || parentTag === "CODE" || parentTag === "PRE") {
+          return NodeFilter.FILTER_REJECT;
+        }
+
+        if (node.parentElement.closest(".flag-glyph")) {
+          return NodeFilter.FILTER_REJECT;
+        }
+
+        return node.nodeValue && node.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+
+    var textNodes = [];
+    var current;
+
+    while ((current = walker.nextNode())) {
+      textNodes.push(current);
+    }
+
+    textNodes.forEach(function (textNode) {
+      var text = textNode.nodeValue;
+      flagPattern.lastIndex = 0;
+
+      if (!flagPattern.test(text)) {
+        return;
+      }
+
+      flagPattern.lastIndex = 0;
+
+      var fragment = document.createDocumentFragment();
+      var lastIndex = 0;
+      var match;
+
+      while ((match = flagPattern.exec(text)) !== null) {
+        var matchIndex = match.index;
+
+        if (matchIndex > lastIndex) {
+          fragment.appendChild(document.createTextNode(text.slice(lastIndex, matchIndex)));
+        }
+
+        var span = document.createElement("span");
+        span.className = "flag-glyph";
+        span.textContent = match[0];
+        fragment.appendChild(span);
+
+        lastIndex = matchIndex + match[0].length;
+      }
+
+      if (lastIndex < text.length) {
+        fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+      }
+
+      textNode.parentNode.replaceChild(fragment, textNode);
+    });
+  }
+
+  /**
    * Get the user's preferred color scheme per system settings
    * @returns {string} Either 'dark' or 'light' based on OS preference
    * @description Checks native prefers-color-scheme media query for system theme preference
@@ -67,8 +140,8 @@
 
   /**
    * Get currently stored explicit theme preference
-   * @returns {string} 'auto', 'light', or 'dark'
-   * @description Returns explicit local preference when present; otherwise auto mode.
+  * @returns {string} 'auto', 'light', or 'dark'
+  * @description Returns explicit local preference when present; otherwise system-following mode.
    */
   function selectedTheme() {
     var stored = localStorage.getItem("afh-theme");
@@ -78,7 +151,7 @@
   /**
    * Get currently effective visual theme
    * @returns {string} 'light' or 'dark'
-   * @description Auto mode resolves to user's system preference.
+  * @description System-following mode resolves to user's system preference.
    */
   function effectiveTheme() {
     var selected = selectedTheme();
@@ -105,15 +178,15 @@
       option.classList.toggle("is-active", isSelected);
 
       if (optionTheme === "auto") {
-        option.setAttribute("aria-label", "Auto (currently " + currentEffective + ")");
+        option.setAttribute("aria-label", "System (currently " + currentEffective + ")");
       }
     });
   }
 
   /**
    * Set theme selection and persist explicit preference when needed
-   * @param {string} theme - 'auto', 'light', or 'dark'
-   * @description Auto mode removes explicit override and follows system preference.
+  * @param {string} theme - 'auto', 'light', or 'dark'
+  * @description System-following mode removes explicit override and follows system preference.
    */
   function setTheme(theme) {
     if (theme === "auto") {
@@ -289,147 +362,6 @@
     }, 1600);
   }
 
-  function syncTagPostsFilter() {
-    var tagPostsPage = document.querySelector("[data-tag-posts-page]");
-
-    if (!tagPostsPage) {
-      return;
-    }
-
-    var filterLinks = document.querySelectorAll("[data-tag-filter-link]");
-    var status = document.querySelector("[data-tag-status]");
-    var notFound = tagPostsPage.querySelector("[data-tag-not-found]");
-    var sections = Array.prototype.slice.call(
-      tagPostsPage.querySelectorAll("[data-tag-section]")
-    );
-    var params = new URLSearchParams(window.location.search);
-    var selectedTag = params.get("tag");
-    var normalizedTag = selectedTag ? selectedTag.toLowerCase() : "all";
-    var showAll = !selectedTag || normalizedTag === "all" || normalizedTag === "*";
-    var foundSection = null;
-
-    sections.forEach(function (section) {
-      var matches = showAll || section.getAttribute("data-tag-value") === normalizedTag;
-
-      section.hidden = !matches;
-
-      if (matches && !foundSection) {
-        foundSection = section;
-      }
-    });
-
-    if (notFound) {
-      notFound.hidden = showAll || !!foundSection;
-    }
-
-    filterLinks.forEach(function (link) {
-      var value = (link.getAttribute("data-tag-value") || "all").toLowerCase();
-      var isActive = showAll ? value === "all" : value === normalizedTag;
-      link.classList.toggle("is-active", isActive);
-      link.setAttribute("aria-current", isActive ? "page" : "false");
-    });
-
-    if (!status) {
-      return;
-    }
-
-    if (showAll) {
-      status.hidden = false;
-      status.textContent = "Showing posts for all tags.";
-      return;
-    }
-
-    if (foundSection) {
-      status.hidden = false;
-      status.textContent = 'Showing posts tagged "' + foundSection.getAttribute("data-tag-label") + '".';
-      return;
-    }
-
-    status.hidden = false;
-    status.textContent = "The requested tag does not exist.";
-  }
-
-  function initHomeLandingSnap() {
-    var landing = document.querySelector("[data-home-landing]");
-    var landingTarget = document.querySelector("[data-home-main]");
-    var scrollHint = document.querySelector("[data-home-scroll]");
-    var touchStartY = null;
-    var isSnapping = false;
-
-    if (!landing || !landingTarget) {
-      return;
-    }
-
-    function isNearTop() {
-      return (window.scrollY || 0) < 24 && !body.classList.contains("menu-open");
-    }
-
-    function snapToMain() {
-      if (isSnapping) {
-        return;
-      }
-
-      isSnapping = true;
-      landingTarget.scrollIntoView({ behavior: "smooth", block: "start" });
-
-      window.setTimeout(function () {
-        isSnapping = false;
-      }, 900);
-    }
-
-    if (scrollHint) {
-      scrollHint.addEventListener("click", function (event) {
-        event.preventDefault();
-        snapToMain();
-      });
-    }
-
-    window.addEventListener("wheel", function (event) {
-      if (!isNearTop() || event.deltaY <= 8) {
-        return;
-      }
-
-      event.preventDefault();
-      snapToMain();
-    }, { passive: false });
-
-    window.addEventListener("touchstart", function (event) {
-      if (!event.touches || event.touches.length === 0) {
-        return;
-      }
-
-      touchStartY = event.touches[0].clientY;
-    }, { passive: true });
-
-    window.addEventListener("touchmove", function (event) {
-      if (!isNearTop() || touchStartY === null || !event.touches || event.touches.length === 0) {
-        return;
-      }
-
-      var deltaY = touchStartY - event.touches[0].clientY;
-
-      if (deltaY <= 18) {
-        return;
-      }
-
-      event.preventDefault();
-      touchStartY = null;
-      snapToMain();
-    }, { passive: false });
-
-    window.addEventListener("keydown", function (event) {
-      var activeTag = document.activeElement ? document.activeElement.tagName : "";
-      var isTyping = activeTag === "INPUT" || activeTag === "TEXTAREA" || activeTag === "SELECT" || (document.activeElement && document.activeElement.isContentEditable);
-      var shouldSnap = event.key === "ArrowDown" || event.key === "PageDown" || event.key === " ";
-
-      if (!isNearTop() || isTyping || !shouldSnap) {
-        return;
-      }
-
-      event.preventDefault();
-      snapToMain();
-    });
-  }
 
   // ========== EVENT LISTENERS: MENU & DRAWER ==========
   
@@ -462,12 +394,22 @@
     });
   });
 
-  syncTagPostsFilter();
-  initHomeLandingSnap();
-
   // ========== EVENT LISTENERS: KEYBOARD ACCESSIBILITY ==========
   
   document.addEventListener("keydown", function (event) {
+    var activeElement = document.activeElement;
+    var activeTag = activeElement ? activeElement.tagName : "";
+    var isTyping = activeTag === "INPUT" || activeTag === "TEXTAREA" || activeTag === "SELECT" || (activeElement && activeElement.isContentEditable);
+    var isMenuHotkey = event.key === "Enter";
+    var isBodyFocus = activeElement === document.body || activeElement === document.documentElement;
+
+    // Global menu hotkey: open menu when focus is on page/root and user hits Enter.
+    if (isMenuHotkey && !body.classList.contains("menu-open") && !isTyping && isBodyFocus) {
+      event.preventDefault();
+      setMenuState(true);
+      return;
+    }
+
     // Tab focus trap when menu is open
     if (event.key === "Tab" && body.classList.contains("menu-open") && drawer) {
       var focusableInDrawer = getFocusable(drawer);
@@ -520,7 +462,7 @@
   // Initialize threshold after DOM and images are loaded
   window.addEventListener("load", syncScrollThreshold);
   
-  // Sync theme controls when system preference changes in auto mode
+  // Sync theme controls when system preference changes in system-following mode
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () {
     if (selectedTheme() === "auto") {
       syncThemeControls();
@@ -532,4 +474,5 @@
   syncThemeControls();    // Set initial theme selector UI
   syncScrollThreshold();  // Calculate and apply initial scroll threshold
   setMenuState(false);    // Ensure menu starts closed
+  wrapFlagGlyphs(document.body);
 }());

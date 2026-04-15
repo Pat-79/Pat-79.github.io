@@ -3,10 +3,11 @@
 This repository is a **showcase site** for the [AwayFromHome Jekyll theme](#the-awayfromhome-theme).  
 It demonstrates how the theme looks in practice and how to configure and extend it for any content site.
 
+---
 
 ## The AwayFromHome Theme
 
-The AwayFromHome theme is a reusable Jekyll theme gem that provides a complete, opinionated design system for content-heavy sites — travel journals, blogs, personal sites — without coupling design to content.
+The AwayFromHome theme is a reusable Jekyll theme gem that provides a complete, travel journals, blogs, personal sites without coupling design to content.
 
 The theme lives in the `theme/awayfromhome-theme/` directory and is consumed by this showcase site through a local Gemfile path reference.
 
@@ -27,6 +28,7 @@ The theme lives in the `theme/awayfromhome-theme/` directory and is consumed by 
 - Site-specific **SCSS overrides** in `_sass/site/`
 - The CSS **entrypoint** in `assets/css/main.scss`
 
+---
 
 ## Getting started
 
@@ -47,6 +49,7 @@ bundle install
 bundle exec jekyll serve
 ```
 
+---
 
 ## Configuration (`_config.yml`)
 
@@ -169,6 +172,7 @@ error_page:
   message:            # omit to use automatic message per error code
 ```
 
+---
 
 ## Layouts
 
@@ -185,16 +189,19 @@ Front matter options:
 | `image` | Activates a full-width hero banner with the page title overlaid |
 | `title` | Used as the hero title and `<title>` tag |
 
+---
 
 ### `home`
 
 Full-screen landing hero with a video or image background, centered site title and tagline, a pulsing scroll-down arrow, and a scroll-snap into the "Latest Posts" section below.
 
 ```yaml
+---
 layout: home
 landing_video_url: https://youtu.be/CIWgifiybWk  # any YouTube URL format
 landing_image: /assets/images/fallback.svg         # used when no video is set
 latest_posts_limit: 2
+---
 ```
 
 Config fallbacks under `home_landing:`:
@@ -205,6 +212,7 @@ home_landing:
   image: /assets/images/fallback.svg
 ```
 
+---
 
 ### `post`
 
@@ -223,46 +231,58 @@ Front matter options for posts:
 Example:
 
 ```yaml
+---
 title: Slovenia, Lakes and Late Light
 image: /assets/images/post-hero-slovenia.svg
 tags: [europe, mountains, lake]
+---
 ```
 
+---
 
 ### `blog`
 
 Renders a filterable list of all posts as media cards.
 
 ```yaml
+---
 layout: blog
 permalink: /blog/
 image: /assets/images/page-hero-blog.svg
 blog_intro: Recent posts using the reusable article layout.
 blog_excerpt_words: 30
 blog_posts_limit:        # omit to show all posts
+---
 ```
 
+---
 
 ### `tag-index`
 
 Renders the tag index page with filter chips and grouped post lists. Tags are filterable via URL query parameter (`?tag=europe`).
 
 ```yaml
+---
 layout: tag-index
 permalink: /tags/
 image: /assets/images/page-hero-tags.svg
+---
 ```
 
+---
 
 ### `tag-cloud`
 
 Renders a visual tag cloud page (linked tag chips scaled by usage frequency).
 
 ```yaml
+---
 layout: tag-cloud
 permalink: /tags/cloud/
+---
 ```
 
+---
 
 ### `sitemap`
 
@@ -270,11 +290,14 @@ Auto-generates a sitemap with two sections: **Pages** and **Posts**.
 Automatically excludes the current page, pages with `sitemap: false`, and pages whose URL or title contains `404`.
 
 ```yaml
+---
 layout: sitemap
 permalink: /sitemap/
 image: /assets/images/page-hero-sitemap.svg
+---
 ```
 
+---
 
 ### `social-media`
 
@@ -282,6 +305,7 @@ Renders the social media links as a styled list.
 Sources links from front matter > `site.social_page.links` > `site.social_links`.
 
 ```yaml
+---
 layout: social-media
 permalink: /social-media/
 image: /assets/images/page-hero-social.svg
@@ -291,14 +315,17 @@ social_open_new_tab: true
 #   - platform: instagram
 #     url: https://instagram.com/youraccount
 #     title: Instagram
+---
 ```
 
+---
 
 ### `error`
 
 Used for HTTP error pages (400, 403, 404, 500 …). Auto-detects the error code from the page title. Renders a centered card with the error code, message, and a "Back to home" button.
 
 ```yaml
+---
 layout: error
 permalink: /404.html
 sitemap: false
@@ -308,8 +335,10 @@ image: /assets/images/page-hero-error-404.svg
 # error_message: The page you are looking for could not be found.
 # error_cta_label: Back to home
 # error_cta_url: /
+---
 ```
 
+---
 
 ## Posts
 
@@ -327,6 +356,7 @@ To opt a page or post out of the sitemap layout:
 sitemap: false
 ```
 
+---
 
 ## Hiding the theme from Jekyll's build
 
@@ -337,6 +367,7 @@ exclude:
   - theme
 ```
 
+---
 
 ## Moving the theme to its own repository
 
