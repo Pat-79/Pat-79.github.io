@@ -1,0 +1,1294 @@
+/**
+ * Away From Home Theme - Layout & Components
+ * 
+ * Comprehensive styling for page structure, header, footer, navigation drawer,
+ * and component styles. This file uses SCSS features (nesting, variables) that
+ * compile to standard CSS. Comments in this source file aid maintainability.
+ * 
+ * Dependencies: variables.scss (CSS custom properties)
+ * Output: Compiled to minified CSS in main.css
+ */
+
+@use "awayfromhome-theme/variables" as *;
+
+// ============================================================================
+// LAYOUT: Page Structure & Container
+// ============================================================================
+
+/// Root container for entire site
+/// Uses flexbox to push footer to bottom (sticky footer pattern)
+.site-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: transparent;
+}
+
+// ============================================================================
+// HEADER: Fixed Navigation Top Bar
+// ============================================================================
+
+/// Main site header - fixed at top of viewport
+/// Responds to two scroll classes:
+/// - is-header-solid: applies dark background (triggered at scrollY > 0)
+/// - is-scrolled: reduces height when post hero exits viewport
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  padding: 0.5rem 0;
+  background: transparent;
+  transform: translateX(0);
+  
+  // Smooth transitions for background, blur, shadow, and dimensions
+  transition: transform $motion-base ease, padding $motion-base ease, background $motion-ui ease,
+              box-shadow $motion-ui ease, backdrop-filter $motion-theme ease, color $motion-theme ease;
+  
+  // Default: no blur effect (transparent state)
+  backdrop-filter: blur(0);
+}
+
+/// Dark background + blur effect applied when:
+/// - User has scrolled down (is-header-solid class)
+/// - Navigation drawer is open (menu-open class)
+body.is-header-solid .site-header,
+body.menu-open .site-header {
+  background: color-mix(in srgb, var(--header-bg-scrolled) 96%, $color-black);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); // Safari support
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 1px 0 var(--border);
+}
+
+/// Inner container for header content (logo, menu button)
+/// Height transitions between two states based on scroll position
+.site-header__inner {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.8rem; // Default height
+  padding-inline: clamp(0.65rem, 2.2vw, 1.6rem); // Responsive padding
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto; // Logo grows, menu button fixed
+  align-items: center;
+  gap: 1rem;
+  transition: min-height 220ms ease;
+}
+
+/// Reduced height when post hero exits viewport (is-scrolled)
+/// or when menu is open (prevents overlap)
+body.is-scrolled .site-header__inner,
+body.menu-open .site-header__inner {
+  min-height: 2.5rem;
+}
+
+// ============================================================================
+// FOOTER: Bottom Navigation & Information
+// ============================================================================
+
+/// Footer grid layout - changes arrangement based on viewport width
+/// Desktop (>900px): 3-column horizontal layout (left | center | right)
+/// Tablet (<900px): Diagonal arrangement (top-left, center, bottom-right)
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-areas: "footer-left footer-center footer-right";
+  align-items: end;
+  gap: 1rem 1.25rem;
+}
+
+// ============================================================================
+// BRAND: Logo & Title
+// ============================================================================
+
+/// Site brand/logo container - links to home page
+.site-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  position: relative;
+  z-index: 2; // Stays above menu when opened
+  flex: 0 1 auto;
+  min-width: 0; // Allows truncation of long titles
+}
+
+/// Logo and mark are circles with consistent dimensions
+.site-brand__logo,
+.site-brand__mark {
+  width: $control-size;
+  height: $control-size;
+  border-radius: $radius-pill; // Perfect circle
+  flex: 0 0 auto;
+}
+
+/// Logo mark - colored circle with accent background and site initial
+.site-brand__mark {
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--accent) 20%, var(--surface));
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+/// Logo text - site name/title
+.site-brand__text {
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; // Truncate on narrow screens
+}
+
+/// Text styling for post layout - white with shadow for contrast over hero image
+.layout-post .site-brand__text,
+.layout-post .menu-toggle {
+  color: $color-white;
+  text-shadow: $on-image-shadow;
+}
+
+/// Text color when header becomes "solid" (scrolled down) - white without shadow
+/// (dark background provides sufficient contrast)
+body.is-header-solid .site-brand__text,
+body.menu-open .site-brand__text,
+body.is-header-solid .menu-toggle,
+body.menu-open .menu-toggle {
+  color: $color-white;
+  text-shadow: none;
+}
+
+/// Logo drop shadow when header is solid
+body.is-header-solid .site-brand__logo,
+body.menu-open .site-brand__logo {
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35));
+}
+
+// ============================================================================
+// MENU TOGGLE: Hamburger Button
+// ============================================================================
+
+/// Hamburger menu button - opens navigation drawer
+.menu-toggle {
+  flex: 0 0 auto;
+  width: $control-size;
+  height: $control-size;
+  display: grid;
+  place-items: center;
+  justify-self: end; // Align to right of header
+  padding: 0;
+  border: 1px solid $frost-border-soft;
+  border-radius: $radius-pill;
+  background: $frost-bg-soft;
+  color: var(--text);
+  box-shadow: $elevation-shadow;
+}
+
+/// Container for three animated bars
+.menu-toggle__bars {
+  width: 22px;
+  display: grid;
+  gap: 4px;
+}
+
+/// Individual hamburger bar - 2px height
+/// Each bar has unique animation (5.791s, 9.23s, 7.31s) for organic effect
+.menu-toggle__bar {
+  display: block;
+  height: 2px;
+  margin-left: auto;
+  border-radius: $radius-pill;
+  background: currentColor;
+  transform-origin: center;
+  transition: transform $motion-base ease, opacity $motion-toast ease, width $motion-base ease;
+}
+
+/// Top and bottom bars - 20px width
+.menu-toggle__bar--top,
+.menu-toggle__bar--bottom {
+  width: 20px;
+}
+
+/// Middle bar - 14px width (off-center for visual balance)
+.menu-toggle__bar--middle {
+  width: 14px;
+}
+
+/// Continuous animations with staggered timings for each bar
+.menu-toggle__bar--top {
+  animation: menu-bar-top 5.791s ease-in-out infinite;
+}
+
+.menu-toggle__bar--middle {
+  animation: menu-bar-middle 9.23s ease-in-out infinite;
+}
+
+.menu-toggle__bar--bottom {
+  animation: menu-bar-bottom 7.31s ease-in-out infinite;
+}
+
+/// When menu is open: stop animations and transform into X
+body.menu-open .menu-toggle__bar {
+  animation: none;
+  margin-left: 0;
+  margin-right: 0;
+  justify-self: center;
+}
+
+/// Top bar rotates up and to the right
+body.menu-open .menu-toggle__bar--top {
+  width: 18px;
+  transform: translateY(6px) rotate(45deg);
+}
+
+/// Middle bar fades out
+body.menu-open .menu-toggle__bar--middle {
+  opacity: 0;
+}
+
+/// Bottom bar rotates down and to the left
+body.menu-open .menu-toggle__bar--bottom {
+  width: 18px;
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+// ============================================================================
+// PAGE CONTENT: Main Content Area
+// ============================================================================
+
+/// Main content flex container - grows to fill available space above footer
+.page-content {
+  flex: 1;
+  position: relative;
+  transition: transform $motion-base ease; // Shifts when drawer opens
+}
+
+// ============================================================================
+// NAVIGATION DRAWER: Slide-out Menu Panel
+// ============================================================================
+
+/// Off-screen drawer slides in from right when menu opens
+/// Contains navigation links, tags, theme toggle, social links
+.menu-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(100vw, var(--drawer-width-wide)); // Responsive, max width on desktop
+  height: 100vh;
+  z-index: 20;
+  background: var(--drawer-bg);
+  color: var(--drawer-text);
+  overflow-y: auto;
+  
+  // Slides in from right
+  transform: translateX(100%);
+  visibility: hidden; // Prevent interaction when hidden
+  pointer-events: none;
+  
+  // Quick slide animation, no delay
+  transition: transform $motion-base ease, visibility 0s linear $motion-base;
+  
+  // Subtle shadow when revealed
+  box-shadow: -18px 0 48px rgba(0, 0, 0, 0.28);
+}
+
+/// Inner padding for drawer content - accounts for sticky header
+.menu-drawer__inner {
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: calc(var(--header-height) + 1.4rem) 1.5rem 2rem;
+}
+
+/// Semi-transparent overlay behind drawer
+/// Blocks interaction with page content while drawer is open
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: rgba(5, 8, 12, 0.38);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity $motion-base ease;
+}
+
+/// Show backdrop when menu is open
+body.menu-open .menu-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/// Slide drawer in and enable interaction
+body.menu-open .menu-drawer {
+  transform: translateX(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition: transform $motion-base ease;
+}
+
+/// Shift header, content, and footer left to reveal drawer
+body.menu-open .site-header {
+  transform: translateX(calc(-1 * min(100vw, var(--drawer-width-wide))));
+}
+
+body.menu-open .page-content,
+body.menu-open .site-footer {
+  transform: translateX(calc(-1 * min(100vw, var(--drawer-width-wide))));
+}
+
+// ============================================================================
+// MENU CONTENT: Navigation Sections, Lists, Tags
+// ============================================================================
+
+/// Panel grouping multiple menu sections
+.menu-panel {
+  display: grid;
+  gap: 2rem;
+}
+
+/// Section headers in drawer - small caps style
+.menu-section h2 {
+  margin-bottom: 1rem;
+  color: var(--drawer-text);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+/// Navigation link list in drawer
+.menu-list {
+  display: grid;
+  gap: 0.65rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/// Menu links - subtle color, accent on hover
+.menu-list a {
+  color: color-mix(in srgb, var(--drawer-text) 88%, white);
+  text-decoration: none;
+}
+
+.menu-list a:hover,
+.menu-list a:focus-visible {
+  color: var(--accent);
+}
+
+/// Descriptive text in drawer sections
+.menu-note {
+  color: var(--drawer-muted);
+  font-size: 0.95rem;
+}
+
+/// Tag cloud layout - wrapping flex layout
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.tag-cloud--scaled {
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.tag-cloud--page {
+  margin-top: 1.5rem;
+}
+
+.tag-cloud--filters {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.tag-cloud--filters-list {
+  align-items: center;
+}
+
+.tag-cloud--drawer {
+  gap: 0.5rem;
+}
+
+/// Individual tag chip - subtle border and background
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.75rem;
+  border: 1px solid $frost-border-soft;
+  border-radius: $radius-pill;
+  color: var(--drawer-text);
+  font-size: 0.92rem;
+  text-decoration: none;
+  background: $frost-fill-soft;
+}
+
+.tag-chip--cloud {
+  gap: 0.45em;
+  padding: 0.5em 0.8em;
+  font-size: calc(var(--tag-size, 14) * 1px);
+  line-height: 1;
+}
+
+.tag-cloud--drawer .tag-chip--cloud {
+  padding: 0.45em 0.75em;
+}
+
+.tag-chip__label {
+  line-height: 1;
+}
+
+.tag-chip__count {
+  font-size: 0.72em;
+  font-weight: 700;
+  opacity: 0.72;
+}
+
+.tag-filter-chip.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: $color-accent-ink;
+}
+
+.tag-filter-chip.is-active .tag-chip__count {
+  opacity: 0.84;
+}
+
+.tag-posts__status {
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.tag-index {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tag-section {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
+.tag-section__eyebrow {
+  margin-bottom: 0.65rem;
+  color: var(--accent-strong);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.tag-section__summary {
+  margin-bottom: 1rem;
+  color: var(--muted);
+}
+
+.tag-section__list {
+  display: grid;
+  gap: 0.85rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.tag-section__list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.45rem 1rem;
+}
+
+.tag-section__list a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tag-section__list a:hover,
+.tag-section__list a:focus-visible {
+  color: var(--accent-strong);
+}
+
+.tag-section__date {
+  color: var(--muted);
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+.tag-section--missing {
+  text-align: left;
+}
+
+// ============================================================================
+// THEME SWITCH: Icon Buttons in Flyout Top
+// ============================================================================
+
+.menu-drawer__top-controls {
+  position: absolute;
+  top: 0.8rem;
+  left: 1.5rem;
+  z-index: 1;
+}
+
+.theme-switch--drawer-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.theme-switch--drawer-top .theme-switch__option {
+  width: $control-size-compact;
+  height: $control-size-compact;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid $frost-border-soft;
+  border-radius: $radius-pill;
+  background: $frost-bg-soft;
+  color: var(--drawer-text);
+  cursor: pointer;
+  box-shadow: $elevation-shadow;
+  transition: transform $motion-fast ease, background $motion-fast ease, color $motion-fast ease, border-color $motion-fast ease;
+}
+
+.theme-switch--drawer-top .theme-switch__option svg {
+  width: $icon-size-control;
+  height: $icon-size-control;
+}
+
+.theme-switch--drawer-top .theme-switch__option:hover,
+.theme-switch--drawer-top .theme-switch__option:focus-visible {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--accent) 68%, $color-white);
+}
+
+.theme-switch--drawer-top .theme-switch__option.is-active,
+.theme-switch--drawer-top .theme-switch__option[aria-pressed="true"] {
+  background: var(--accent);
+  color: $color-accent-ink;
+  border-color: var(--accent);
+}
+
+// ============================================================================
+// SOCIAL LINKS: Footer Social Icons
+// ============================================================================
+
+/// Social links container - horizontal flex layout
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+/// Individual social link icon - circular background on hover
+.social-link {
+  width: $control-size;
+  height: $control-size;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-pill;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+  transition: transform $motion-fast ease, background $motion-fast ease, color $motion-fast ease;
+}
+
+/// Hover/focus state - solid background, subtle lift animation
+.social-link:hover,
+.social-link:focus-visible {
+  transform: translateY(-2px);
+  background: var(--accent);
+  color: $color-accent-ink;
+}
+
+/// SVG icon sizing within social link
+.social-link svg {
+  width: $icon-size-social;
+  height: $icon-size-social;
+}
+
+.site-footer .social-link {
+  color: $footer-text;
+}
+
+.social-link--share.is-copied {
+  background: var(--accent);
+  color: $color-accent-ink;
+}
+
+.social-link--share.is-copy-failed {
+  background: $color-danger-soft;
+  color: $color-danger-text;
+}
+
+.share-toast {
+  position: fixed;
+  bottom: 15%;
+  left: 50%;
+  transform: translate(-50%, 16%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 60;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid $frost-border-strong;
+  border-radius: $radius-pill;
+  background: $frost-bg-strong;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: $footer-text;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  transition: opacity $motion-toast ease, transform $motion-toast ease;
+}
+
+.share-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+// ============================================================================
+// FOOTER: Site Footer & Content
+// ============================================================================
+
+/// Main footer section - dark background, positioned at bottom
+.site-footer {
+  padding: 2rem 0 2.4rem;
+  background: $footer-bg;
+  border-top: 1px solid var(--border);
+  transition: transform $motion-base ease; // Shifts when drawer opens
+}
+
+/// Footer content groups - logo/brand and disclaimer/note
+.site-footer__brand,
+.site-footer__note {
+  display: grid;
+  gap: 0.25rem;
+}
+
+/// Brand section - positioned in footer grid
+.site-footer__brand {
+  grid-area: footer-left;
+  justify-self: start;
+}
+
+/// Disclaimer/note section - centered
+.site-footer__note {
+  grid-area: footer-center;
+  justify-self: center;
+}
+
+/// Social links in footer - right aligned
+.social-links--footer {
+  grid-area: footer-right;
+  justify-self: end;
+}
+
+/// Footer text color - light on dark background
+.site-footer,
+.site-footer a {
+  color: $footer-text;
+}
+
+/// Footer brand link styling
+.site-footer__brand a {
+  text-decoration: none;
+}
+
+/// First link in brand section - site title styling
+.site-footer__brand a:first-child {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: lowercase;
+}
+
+/// Disclaimer text - more muted color
+.site-footer__note {
+  color: $footer-text-muted;
+  text-align: center;
+}
+
+.site-footer__note p {
+  margin: 0;
+}
+
+// ============================================================================
+// DEFAULT LAYOUT: Non-Post Pages
+// ============================================================================
+
+/// Optional page hero image for non-post pages.
+/// Rendered only when a page defines `image` in front matter.
+.page-header-image {
+  position: relative;
+  min-height: min(34vh, 18rem);
+  margin-bottom: 1.25rem;
+  display: grid;
+  align-items: end;
+}
+
+.page-header-image__media {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+}
+
+.page-header-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, $hero-top-overlay, var(--hero-overlay));
+}
+
+.page-header-image__content {
+  position: relative;
+  z-index: 1;
+  width: min(calc(100% - (2 * var(--page-gutter))), var(--reading-width));
+  padding-top: calc(var(--header-height) + 1.2rem);
+  padding-bottom: clamp(1.1rem, 4vw, 2.1rem);
+}
+
+.page-header-image__title {
+  max-width: 100%;
+  margin: 0;
+  color: $color-white;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  text-shadow: $on-image-heading-shadow;
+}
+
+/// Default layout page content - accounts for fixed header
+/// Adds bottom padding to create space before footer
+.layout-default .page-content {
+  padding-top: calc(var(--header-height) + 2rem);
+  padding-bottom: 1.5rem;
+}
+
+.layout-default.has-page-image .page-content {
+  padding-top: 0;
+}
+
+.layout-default.home-landing .page-content {
+  padding-top: 0;
+}
+
+body.home-landing:not(.is-header-solid) .site-brand__text,
+body.home-landing:not(.is-header-solid) .menu-toggle {
+  color: $color-white;
+  text-shadow: $on-image-shadow;
+}
+
+body.home-landing:not(.is-header-solid) .menu-toggle {
+  border-color: $frost-border-strong;
+  background: $frost-bg-strong;
+}
+
+/// Keep a consistent footer gap on all non-post pages.
+body:not(.layout-post) .page-content > :last-child {
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/// Posts can intentionally run into the footer when the continue banner is present.
+.layout-post .page-content > :last-child {
+  margin-bottom: 0;
+}
+
+// ============================================================================
+// HERO SECTION: Large Introductory Banner
+// ============================================================================
+
+.landing-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 32rem;
+  display: grid;
+  place-items: center;
+  overflow: clip;
+}
+
+.landing-hero__media,
+.landing-hero__video,
+.landing-hero__image,
+.landing-hero__overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.landing-hero__video {
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw;
+  min-width: 177.78svh;
+  min-height: 100svh;
+  border: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.landing-hero__image {
+  background-position: center;
+  background-size: cover;
+}
+
+.landing-hero__overlay {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(8, 14, 22, 0.12), rgba(8, 14, 22, 0.55) 58%, rgba(6, 10, 15, 0.78)),
+    linear-gradient(180deg, rgba(5, 10, 16, 0.2) 0%, rgba(5, 10, 16, 0.7) 100%);
+}
+
+.landing-hero__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  width: min(100%, 60rem);
+  color: $color-white;
+  padding-top: var(--header-height);
+}
+
+.landing-hero__title {
+  margin: 0;
+  color: $color-white;
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  line-height: 1.05;
+  text-shadow: $on-image-heading-shadow;
+}
+
+.landing-hero__tagline {
+  margin: 1rem auto 0;
+  max-width: 34rem;
+  color: $on-image-subtle;
+  font-size: clamp(1.05rem, 2.4vw, 1.8rem);
+  text-shadow: $on-image-shadow;
+}
+
+.landing-hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1rem, 4vh, 2rem);
+  z-index: 2;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  transform: translateX(-50%);
+  color: $on-image-strong;
+  text-decoration: none;
+  animation: landing-arrow-pulse 3s ease-in-out infinite;
+}
+
+.landing-hero__chevron {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.home-section-head {
+  text-align: center;
+  margin: 0 0 1.25rem;
+}
+
+.home-section-head h2 {
+  margin: 0;
+}
+
+.home-landing #home-main {
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/// Hero section container with vertical padding
+.hero {
+  padding: 2rem 0 5rem;
+}
+
+/// Hero content panel - bordered with backdrop blur
+.hero__panel {
+  box-sizing: border-box;
+  width: min(100%, $panel-max-width); // Max width with responsive behavior
+  padding: 2.4rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
+  background: var(--surface-muted);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+}
+
+/// Small text label above hero title (e.g., "Featured")
+.hero__eyebrow {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--accent-strong);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/// Hero heading - responsive size from 2.8rem to 5.5rem
+.hero h1 {
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+}
+
+/// Hero description - muted color for visual hierarchy
+.hero p {
+  max-width: 40rem;
+  color: var(--muted);
+  font-size: 1.125rem;
+}
+
+/// Container for hero action buttons
+.hero__actions {
+  margin-top: 2rem;
+}
+
+// ============================================================================
+// PAGE SECTIONS & CARDS: Content Components
+// ============================================================================
+
+/// Generic page section container
+.page-section {
+  padding: 0;
+}
+
+.page-section--spaced {
+  margin-top: 1.25rem;
+}
+
+/// Reusable card styles for intro cards, story cards, and page copy
+.intro-card,
+.story-card,
+.page-copy {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
+  background: var(--surface-muted);
+  box-shadow: var(--shadow-soft);
+}
+
+/// Intro card width + padding
+.intro-card {
+  box-sizing: border-box;
+  width: min(100%, $panel-max-width);
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/// Page copy keeps container gutters while capping readable width
+.page-copy {
+  box-sizing: border-box;
+  max-width: $panel-max-width;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/// Text color in cards - muted for secondary content
+.intro-card p,
+.page-copy p,
+.page-copy li {
+  color: var(--muted);
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+/// List of story cards - grid with consistent gaps
+.story-list {
+  display: grid;
+  gap: 1.25rem;
+}
+
+/// Story card - two-column grid (image + content)
+.story-card {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.story-card--blog {
+  min-height: 15rem;
+}
+
+/// Story card background image section
+.story-card__media {
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+/// Story card text content area
+.story-card__body {
+  padding: 1.5rem;
+}
+
+/// Story card metadata - date, tags, etc.
+.story-card__meta {
+  margin-bottom: 0.65rem;
+  color: var(--accent-strong);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/// Story card body text - remove margin from last element
+.story-card__body p:last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.error-page {
+  text-align: center;
+  padding-block: clamp(2rem, 5vw, 3.5rem);
+}
+
+.error-page__code {
+  margin-bottom: 0.7rem;
+  color: var(--accent-strong);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.error-page h1 {
+  margin-bottom: 0.85rem;
+}
+
+.error-page p {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 38rem;
+}
+
+// ============================================================================
+// BUTTONS & ACTIONS
+// ============================================================================
+
+/// Primary button style - accent background with dark text
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.4rem;
+  border-radius: $radius-pill;
+  background: var(--accent);
+  color: $color-accent-ink;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform $motion-fast ease, background $motion-fast ease;
+}
+
+/// Button hover state - stronger accent, subtle lift
+.button:hover {
+  background: var(--accent-strong);
+  color: $color-accent-ink;
+  transform: translateY(-1px);
+}
+
+// ============================================================================
+// KEYFRAME ANIMATIONS: Hamburger Bar Animations
+// ============================================================================
+
+/// Top bar animation - width pulses with 5.791s cycle
+/// Creates organic, continuous animation effect
+@keyframes menu-bar-top {
+  0% {
+    width: 20px;
+  }
+  8.633% {
+    width: 15px;
+  }
+  17.266% {
+    width: 20px;
+  }
+  100% {
+    width: 20px;
+  }
+}
+
+/// Middle bar animation - width pulses with 9.23s cycle
+/// Different timing creates visual rhythm and interest
+@keyframes menu-bar-middle {
+  0% {
+    width: 14px;
+  }
+  5.416% {
+    width: 19px;
+  }
+  10.832% {
+    width: 14px;
+  }
+  100% {
+    width: 14px;
+  }
+}
+
+/// Bottom bar animation - width pulses with 7.31s cycle
+/// Staggered timing makes the three bars move independently
+@keyframes menu-bar-bottom {
+  0% {
+    width: 20px;
+  }
+  6.842% {
+    width: 15px;
+  }
+  13.684% {
+    width: 20px;
+  }
+  100% {
+    width: 20px;
+  }
+}
+
+@keyframes landing-arrow-pulse {
+  0% {
+    opacity: 0.45;
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0.35rem);
+  }
+  100% {
+    opacity: 0.45;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+// ============================================================================
+// RESPONSIVE DESIGN: Mobile Breakpoints
+// ============================================================================
+
+/// Mobile layout adjustments (max-width: 640px)
+@media (max-width: $breakpoint-mobile) {
+  .landing-hero__content {
+    padding-top: calc(var(--header-height) + 0.5rem);
+  }
+
+  .landing-hero__tagline {
+    margin-top: 0.7rem;
+  }
+
+  .landing-hero__scroll {
+    bottom: 0.9rem;
+  }
+
+  /// Reduce hero padding on mobile
+  .hero {
+    padding-top: 2rem;
+  }
+  
+  /// Reduce hero panel padding for mobile screens
+  .hero__panel {
+    padding: 1.5rem;
+  }
+
+  .menu-drawer__top-controls {
+    left: 1rem;
+  }
+
+  .theme-switch--drawer-top {
+    gap: 0.25rem;
+  }
+
+  .theme-switch--drawer-top .theme-switch__option {
+    width: $control-size-mobile;
+    height: $control-size-mobile;
+  }
+
+  .share-toast {
+    font-size: 0.82rem;
+  }
+
+  .page-header-image {
+    min-height: 13.5rem;
+  }
+
+  .page-header-image__content {
+    padding-top: calc(var(--header-height) + 0.9rem);
+  }
+  
+  /// Smaller drawer width on mobile
+  .menu-drawer {
+    width: min(100vw, 18rem);
+  }
+  
+  /// Adjust content shift amount when drawer opens
+  body.menu-open .page-content,
+  body.menu-open .site-footer {
+    transform: translateX(calc(-1 * min(100vw, 18rem)));
+  }
+  
+  body.menu-open .site-header {
+    transform: translateX(calc(-1 * min(100vw, 18rem)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-hero__scroll {
+    animation: none;
+  }
+}
+
+/// Tablet layout adjustments (max-width: 900px)
+/// Rearrange footer to diagonal layout (top-left, center, bottom-right)
+@media (max-width: $breakpoint-desktop) {
+  /// Footer grid - diagonal arrangement
+  .site-footer__inner {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas:
+      "footer-left . ."
+      ". footer-center ."
+      ". . footer-right";
+    align-items: center;
+    row-gap: 1.2rem;
+  }
+  
+  /// Footer brand aligned to top and left
+  .site-footer__brand {
+    align-self: start;
+  }
+  
+  /// Footer note centered
+  .site-footer__note {
+    text-align: center;
+    align-self: center;
+  }
+  
+  /// Social links aligned to bottom and right, no wrapping
+  .social-links--footer {
+    align-self: end;
+    flex-wrap: nowrap;
+  }
+  
+  /// Story cards stack vertically (single column)
+  .story-card {
+    grid-template-columns: 1fr;
+  }
+
+  .tag-section__list li {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  
+  /// Story card image gets full width and fixed height
+  .story-card__media {
+    min-height: 14rem;
+  }
+  
+  /// Adjust default layout top padding
+  .layout-default .page-content {
+    padding-top: calc(var(--header-height) + 1.4rem);
+  }
+}

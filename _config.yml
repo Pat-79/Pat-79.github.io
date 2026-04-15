@@ -1,56 +1,76 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you:
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
+lang: en
+title: Away From Home
+description: A content site using a reusable custom Jekyll theme.
+url: ""
+baseurl: ""
+permalink: pretty
+theme: awayfromhome-theme
+default_post_image: /assets/images/post-hero-philippines.svg
 
-title: Patrick's Blog
-email: me@awayfromhome.nl
-description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  Pat-79
-tag_dir: tag
+brand:
+  title: awayfromhome.nl
+  logo: /assets/images/logo-mark.svg
 
-# Build settings
-theme: minima
-plugins:
-  - jekyll-feed
+author:
+  name: Patrick
+  avatar: /assets/images/avatar.svg
+  bio: Slow travel notes, practical route ideas, and visual field journals from the road.
+  location: Based in the Netherlands, usually somewhere else.
 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+navigation:
+  - title: Home
+    url: /
+  - title: About
+    url: /about/
+  - title: Blogs
+    url: /blog/
+  - title: Social Media
+    url: /social-media/
+
+archives:
+  - title: April 2026
+    url: /archive/2026/04/
+  - title: March 2026
+    url: /archive/2026/03/
+  - title: February 2026
+    url: /archive/2026/02/
+
+social_links:
+  - platform: instagram
+    url: https://www.instagram.com/awayfromhome_nl/
+  - platform: youtube
+    url: https://www.youtube.com/@-Away-From-Home-/videos
+  - platform: github
+    url: https://github.com/Pat-79
+
+social_page:
+  intro: Use this page for the site-specific social channels that sit behind the shared theme.
+  open_new_tab: true
+
+footer:
+  domain_label: awayfromhome.nl
+  sitemap_url: /sitemap/
+  copyright: All rights reserved.
+  disclaimer: Travel information and opinions may change over time; verify critical details independently.
+
+theme_settings:
+  default_theme: auto
+
+exclude:
+  - theme
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      author: Patrick
+  - scope:
+      path: ""
+    values:
+      layout: default

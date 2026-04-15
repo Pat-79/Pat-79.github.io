@@ -1,0 +1,27 @@
+{%- assign favicon_path = site.favicon | default: site.brand.logo | default: '/assets/images/logo-mark.svg' -%}
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+<meta name="color-scheme" content="light dark">
+{% include meta-tags.html %}
+<link rel="icon" type="image/svg+xml" href="{{ favicon_path | relative_url }}">
+<link rel="shortcut icon" href="{{ favicon_path | relative_url }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var savedTheme = localStorage.getItem("afh-theme");
+    var defaultTheme = {{ site.theme_settings.default_theme | default: 'auto' | jsonify }};
+    var explicitTheme = (savedTheme === "light" || savedTheme === "dark")
+      ? savedTheme
+      : (defaultTheme === "light" || defaultTheme === "dark" ? defaultTheme : null);
+
+    if (explicitTheme) {
+      document.documentElement.dataset.theme = explicitTheme;
+    }
+  }());
+</script>
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+</head>

@@ -1,0 +1,15 @@
+{%- assign social_class = include.class_name | default: 'social-links' -%}
+<div class="{{ social_class }}">
+  {%- if site.social_links and site.social_links.size > 0 %}
+    {%- for item in site.social_links %}
+      <a class="social-link" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">
+        {%- include icon.html platform=item.platform %}
+        <span class="sr-only">{{ item.platform }} (opens in a new tab)</span>
+      </a>
+    {%- endfor %}
+  {%- endif %}
+  <button class="social-link social-link--share" type="button" data-share-button aria-label="Copy page link" title="Share">
+    {%- include icon.html platform='share' %}
+    <span class="sr-only">Copy page link</span>
+  </button>
+</div>

@@ -1,39 +1,6 @@
 ---
 title: Tags
-layout: page
+permalink: /tags/
+layout: tag-index
+image: /assets/images/page-hero-tags.svg
 ---
-
-{% assign minsize = 12 %}
-{% assign maxsize = 44 %}
-{% assign minposts = 999999999999999 %}
-{% assign maxposts = 0 %}
-{% for tag in site.tags %}
-  {% if tag[1].size < minposts %}
-    {% assign minposts = tag[1].size %}
-  {% endif %}
-  {% if tag[1].size > maxposts %}
-    {% assign maxposts = tag[1].size %}
-  {% endif %}
-{% endfor %}
-{% assign steps = maxposts | minus: minposts %}
-{% if steps == 0 %}
-{% assign steps = 1 %}
-{% endif %}
-{% assign stepsize = maxsize | minus: minsize | divided_by: steps %}
-
-
-{% capture temptags %}
-  {% for tag in site.tags %}
-    {{ tag[0] }}#{{ tag[1].size | minus: 1 | times: stepsize | plus: minsize }}#{{ tag[1].size }}
-  {% endfor %}
-{% endcapture %}
-
-<div style="text-align: center; vertical-align: middle; line-height: 2; display: inline-block;">
-{% assign sortedtemptags = temptags | split:' ' | sort %}
-{%- for temptag in sortedtemptags -%}
-  {% assign tagitems = temptag | split: '#' %}
-  {%- capture tagsize -%}{{ tagitems[1] }} {%- endcapture -%}
-  {%- capture tagname -%}{{ tagitems[0] }}{%- endcapture -%}
-  <a href="/tagposts.html?tag={{ tagname }}"><span class="highligher-rouge" style="vertical-align: middle; font-size:{{ tagsize }}px; padding: 7px; margin-left: 5px; margin-right:5px; background-color: rgba(127,127,255,0.1);border-radius: 20px;"><nobr>{{ tagname }} ({{ tagitems[2] }})</nobr></span></a>
-{% endfor %}
-</div>

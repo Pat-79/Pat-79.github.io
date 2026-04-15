@@ -1,0 +1,61 @@
+---
+layout: default
+---
+
+<section class="page-section">
+  <div class="container page-copy sitemap-index">
+    {% unless page.image %}
+      <h1>{{ page.title | default: "Sitemap" }}</h1>
+    {% endunless %}
+
+    <h2>Pages</h2>
+    <ul>
+      {%- for node in site.html_pages -%}
+        {%- assign include_node = true -%}
+
+        {%- if node.url == nil or node.url == '' -%}
+          {%- assign include_node = false -%}
+        {%- endif -%}
+
+        {%- if node.url == page.url -%}
+          {%- assign include_node = false -%}
+        {%- endif -%}
+
+        {%- if node.sitemap == false -%}
+          {%- assign include_node = false -%}
+        {%- endif -%}
+
+        {%- if node.url contains '404' -%}
+          {%- assign include_node = false -%}
+        {%- endif -%}
+
+        {%- if node.title and node.title contains '404' -%}
+          {%- assign include_node = false -%}
+        {%- endif -%}
+
+        {%- if node.layout == '404' or node.permalink == '/404.html' or node.permalink == '/404/' -%}
+          {%- assign include_node = false -%}
+        {%- endif -%}
+
+        {%- if include_node -%}
+          <li>
+            <a href="{{ node.url | relative_url }}">
+              {{ node.title | default: node.name | default: node.url }}
+            </a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+
+    <h2>Posts</h2>
+    <ul>
+      {%- for post in site.posts -%}
+        {%- unless post.sitemap == false -%}
+          <li>
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </li>
+        {%- endunless -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
