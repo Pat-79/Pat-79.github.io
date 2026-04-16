@@ -161,8 +161,16 @@
       ? searchBarTarget
       : landingTarget;
 
-    // Account for the fixed header so the target isn't hidden beneath it
-    var headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--header-height"), 10) || 0;
+    // Account for the fixed header so the target isn't hidden beneath it.
+    // --header-height is in rem, so convert to px via the root font-size.
+    var headerHeightRaw = getComputedStyle(document.documentElement).getPropertyValue("--header-height").trim();
+    var headerHeight = 0;
+    if (headerHeightRaw.endsWith("rem")) {
+      var rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+      headerHeight = parseFloat(headerHeightRaw) * rootFontSize;
+    } else {
+      headerHeight = parseFloat(headerHeightRaw) || 0;
+    }
     var targetTop = target.getBoundingClientRect().top + window.scrollY - headerHeight;
     window.scrollTo({ top: targetTop, behavior: "smooth" });
 
