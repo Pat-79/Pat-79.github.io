@@ -64,10 +64,14 @@ class SearchEngine {
     const results = Object.create(null);
 
     for (const term of terms) {
+      let foundStrictMatch = false;
+
       for (const word in this.index) {
         const exactWord = word === term;
         const prefixWord = !exactWord && word.startsWith(term);
         if (!exactWord && !prefixWord) continue;
+
+        foundStrictMatch = true;
 
         for (const entry of this.index[word]) {
           if (!results[entry.url]) {
@@ -95,6 +99,48 @@ class SearchEngine {
           results[entry.url].matchedTerms[term] = true;
         }
       }
+
+      // If the query term has no exact/prefix match, allow a conservative typo-tolerant fallback.
+      if (!foundStrictMatch) {
+        const maxDistance = getMaxEditDistance(term);
+        if (maxDistance <= 0) {
+          continue;
+        }
+
+        for (const word in this.index) {
+          if (!isFuzzyCandidate(word, term, maxDistance)) {
+            continue;
+          }
+
+          const distance = levenshteinDistanceWithin(term, word, maxDistance);
+          if (distance < 0) {
+            continue;
+          }
+
+          const fuzzyWordScore = distance === 0 ? 14 : (distance === 1 ? 10 : 6);
+
+          for (const entry of this.index[word]) {
+            if (!results[entry.url]) {
+              results[entry.url] = {
+                ...entry,
+                score: 0,
+                matchedTerms: Object.create(null)
+              };
+            }
+
+            const title = (entry.title || '').toLowerCase();
+            const excerpt = (entry.excerpt || '').toLowerCase();
+            const titleContainsFuzzyWord = title.includes(word);
+            const excerptContainsFuzzyWord = excerpt.includes(word);
+
+            results[entry.url].score += fuzzyWordScore;
+            if (titleContainsFuzzyWord) results[entry.url].score += 5;
+            if (excerptContainsFuzzyWord) results[entry.url].score += 2;
+
+            results[entry.url].matchedTerms[term] = true;
+          }
+        }
+      }
     }
 
     return Object.values(results)
@@ -112,6 +158,66 @@ class SearchEngine {
       })
       .sort((a,b)=>b.score-a.score);
   }
+}
+
+function getMaxEditDistance(term) {
+  const length = (term || '').length;
+  if (length < 3) return 0;
+  if (length <= 4) return 1;
+  return 2;
+}
+
+function isFuzzyCandidate(word, term, maxDistance) {
+  if (!word || !term) return false;
+  if (Math.abs(word.length - term.length) > maxDistance) return false;
+
+  // Keep the candidate set tight for performance and relevance.
+  if (term.length >= 3 && word[0] !== term[0]) return false;
+
+  return true;
+}
+
+function levenshteinDistanceWithin(a, b, maxDistance) {
+  if (a === b) return 0;
+
+  const aLen = a.length;
+  const bLen = b.length;
+  if (Math.abs(aLen - bLen) > maxDistance) return -1;
+
+  const prev = new Array(bLen + 1);
+  const curr = new Array(bLen + 1);
+
+  for (let j = 0; j <= bLen; j += 1) {
+    prev[j] = j;
+  }
+
+  for (let i = 1; i <= aLen; i += 1) {
+    curr[0] = i;
+    let rowMin = curr[0];
+
+    for (let j = 1; j <= bLen; j += 1) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      curr[j] = Math.min(
+        prev[j] + 1,
+        curr[j - 1] + 1,
+        prev[j - 1] + cost
+      );
+
+      if (curr[j] < rowMin) {
+        rowMin = curr[j];
+      }
+    }
+
+    if (rowMin > maxDistance) {
+      return -1;
+    }
+
+    for (let j = 0; j <= bLen; j += 1) {
+      prev[j] = curr[j];
+    }
+  }
+
+  return prev[bLen] <= maxDistance ? prev[bLen] : -1;
 }
 
 function debounce(fn, d=120){
