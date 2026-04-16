@@ -79,10 +79,19 @@ function initSearchWidget(widget) {
 
     const query = input.value;
     const rows = nextResults.slice(0, limit).map((entry) => {
-      return `<li class="search-widget__item" data-url="${entry.url}">
-        <div class="search-widget__title">${highlightText(entry.title || 'Untitled', query)}</div>
-        <div class="search-widget__url">${escapeHtml(entry.url || '')}</div>
-        <div class="search-widget__excerpt">${highlightText(entry.excerpt || '', query)}</div>
+      const hasImage = Boolean(entry.image);
+      const itemClass = hasImage ? 'search-widget__item search-widget__item--with-thumb' : 'search-widget__item';
+      const media = hasImage
+        ? `<img class="search-widget__thumb" src="${escapeHtml(entry.image)}" alt="" loading="lazy" decoding="async" />`
+        : '';
+
+      return `<li class="${itemClass}" data-url="${entry.url}">
+        ${media}
+        <div class="search-widget__content">
+          <div class="search-widget__title">${highlightText(entry.title || 'Untitled', query)}</div>
+          <div class="search-widget__url">${escapeHtml(entry.url || '')}</div>
+          <div class="search-widget__excerpt">${highlightText(entry.excerpt || '', query)}</div>
+        </div>
       </li>`;
     });
 

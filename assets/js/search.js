@@ -40,9 +40,10 @@ class SearchEngine {
       if (typeof w !== 'string' || !w) return;
       const title = typeof entry.title === 'string' ? entry.title : '';
       const excerpt = typeof entry.excerpt === 'string' ? entry.excerpt : '';
+      const image = typeof entry.image === 'string' ? entry.image : '';
       if (!this.index[w]) this.index[w] = [];
       if (!this.index[w].some(e => e.url === entry.url)) {
-        this.index[w].push({ url: entry.url, title, excerpt });
+        this.index[w].push({ url: entry.url, title, excerpt, image });
       }
     });
 
