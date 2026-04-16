@@ -103,7 +103,7 @@
   }());
 </script>
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1776288352">
+<link rel="stylesheet" href="/assets/css/main.css?v=1776362434">
 
 </head>
 <body class="layout-sitemap has-page-image">
@@ -259,6 +259,25 @@
         <img class="site-brand__logo" src="/assets/images/logo-mark.svg" alt="" width="40" height="40">
       <span class="site-brand__text">awayfromhome.nl</span>
     </a>
+    <div class="site-header__search" aria-label="Site search">
+      <div
+  class="search-widget search-widget--header"
+  data-search-widget
+  data-search-id="site-header-search"
+  data-search-limit="6"
+  data-search-version="20260416200034"
+  data-search-sync-query="true"
+>
+  <input
+    class="search-widget__input"
+    data-search-input
+    autocomplete="off"
+    placeholder="Search stories..."
+    aria-label="Search"
+  />
+  <ul class="search-widget__results" data-search-results></ul>
+</div>
+    </div>
     <button
       class="menu-toggle"
       type="button"
@@ -320,6 +339,15 @@
             <p class="story-card__meta">Page</p>
             <h2>Home</h2>
             <p class="story-card__excerpt">Home</p>
+          </div>
+        </a><a class="story-card story-card--blog" href="/search/">
+          <div class="story-card__media">
+            <img class="story-card__media-image" src="/assets/images/page-hero-sitemap.svg" alt="" loading="lazy" decoding="async">
+          </div>
+          <div class="story-card__body">
+            <p class="story-card__meta">Page</p>
+            <h2>Search</h2>
+            <p class="story-card__excerpt">Search</p>
           </div>
         </a><a class="story-card story-card--blog" href="/social-media/">
           <div class="story-card__media">
@@ -434,6 +462,7 @@
 </footer>
 </div>
 <script src="/assets/js/theme.js" defer></script>
+<script type="module" src="/assets/js/search-widget.js" defer></script>
 
 
 

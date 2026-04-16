@@ -474,5 +474,6 @@
   syncThemeControls();    // Set initial theme selector UI
   syncScrollThreshold();  // Calculate and apply initial scroll threshold
   setMenuState(false);    // Ensure menu starts closed
+  window.afhWrapFlagGlyphs = wrapFlagGlyphs;
   wrapFlagGlyphs(document.body);
 }());
