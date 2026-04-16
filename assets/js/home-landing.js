@@ -2,6 +2,7 @@
   var body = document.body;
   var landing = document.querySelector("[data-home-landing]");
   var landingTarget = document.querySelector("[data-home-main]");
+  var searchBarTarget = document.querySelector("[data-home-scroll-target]");
   var scrollHint = document.querySelector("[data-home-scroll]");
   var hlsVideo = document.querySelector("[data-hls-video]");
   var touchStartY = null;
@@ -51,6 +52,13 @@
     document.head.appendChild(script);
   }
 
+  function randomiseStart(video) {
+    var duration = video.duration;
+    if (duration && isFinite(duration) && duration > 0) {
+      video.currentTime = Math.random() * duration;
+    }
+  }
+
   function initHlsLandingVideo() {
     if (!hlsVideo) {
       return;
@@ -66,6 +74,7 @@
       hlsVideo.src = hlsSource;
       hlsVideo.load();
       hlsVideo.addEventListener("loadedmetadata", function () {
+        randomiseStart(hlsVideo);
         safeAutoplay(hlsVideo);
       }, { once: true });
       return;
@@ -86,7 +95,15 @@
       hls.attachMedia(hlsVideo);
 
       hls.on(window.Hls.Events.MANIFEST_PARSED, function () {
-        safeAutoplay(hlsVideo);
+        if (hlsVideo.readyState >= 1 && isFinite(hlsVideo.duration) && hlsVideo.duration > 0) {
+          randomiseStart(hlsVideo);
+          safeAutoplay(hlsVideo);
+        } else {
+          hlsVideo.addEventListener("loadedmetadata", function () {
+            randomiseStart(hlsVideo);
+            safeAutoplay(hlsVideo);
+          }, { once: true });
+        }
       });
 
       hls.on(window.Hls.Events.ERROR, function (_event, data) {
@@ -111,6 +128,20 @@
 
   initHlsLandingVideo();
 
+  // Pause video playback when the landing hero is fully out of view; resume when any part is visible
+  if (hlsVideo && typeof IntersectionObserver !== "undefined") {
+    var videoObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          safeAutoplay(hlsVideo);
+        } else if (!hlsVideo.paused) {
+          hlsVideo.pause();
+        }
+      });
+    }, { threshold: 0 });
+    videoObserver.observe(landing);
+  }
+
   if (!landing || !landingTarget) {
     return;
   }
@@ -125,7 +156,15 @@
     }
 
     isSnapping = true;
-    landingTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+    // On narrow screens the search bar is visible — snap to it instead of the posts section
+    var target = (searchBarTarget && searchBarTarget.offsetParent !== null)
+      ? searchBarTarget
+      : landingTarget;
+
+    // Account for the fixed header so the target isn't hidden beneath it
+    var headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--header-height"), 10) || 0;
+    var targetTop = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+    window.scrollTo({ top: targetTop, behavior: "smooth" });
 
     window.setTimeout(function () {
       isSnapping = false;
