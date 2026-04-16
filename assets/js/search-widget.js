@@ -43,6 +43,30 @@ function initSearchWidget(widget) {
   let results = [];
   let active = -1;
 
+  function syncQueryParam(query) {
+    if (!syncQuery) return;
+
+    const url = new URL(window.location);
+    if (query) {
+      url.searchParams.set('q', query);
+    } else {
+      url.searchParams.delete('q');
+    }
+    window.history.replaceState({}, '', url);
+  }
+
+  function clearResults() {
+    results = [];
+    active = -1;
+    resultsBox.innerHTML = '';
+  }
+
+  function cancelSearch() {
+    input.value = '';
+    clearResults();
+    syncQueryParam('');
+  }
+
   function updateActiveClass() {
     resultsBox.querySelectorAll('.search-widget__item').forEach((element, index) => {
       element.classList.toggle('is-active', index === active);
@@ -73,13 +97,8 @@ function initSearchWidget(widget) {
     const query = (value || '').trim();
 
     if (!query) {
-      resultsBox.innerHTML = '';
-
-      if (syncQuery) {
-        const url = new URL(window.location);
-        url.searchParams.delete('q');
-        window.history.replaceState({}, '', url);
-      }
+      clearResults();
+      syncQueryParam('');
 
       return;
     }
@@ -87,12 +106,7 @@ function initSearchWidget(widget) {
     await engine.load(version);
 
     render(engine.search(query));
-
-    if (syncQuery) {
-      const url = new URL(window.location);
-      url.searchParams.set('q', query);
-      window.history.replaceState({}, '', url);
-    }
+    syncQueryParam(query);
   }, 120);
 
   input.addEventListener('input', (event) => {
@@ -100,6 +114,13 @@ function initSearchWidget(widget) {
   });
 
   input.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+      cancelSearch();
+      return;
+    }
+
     if (!results.length) return;
 
     if (event.key === 'ArrowDown') {
@@ -126,6 +147,11 @@ function initSearchWidget(widget) {
     const item = event.target.closest('.search-widget__item');
     if (!item) return;
     window.location = item.dataset.url;
+  });
+
+  document.addEventListener('pointerdown', (event) => {
+    if (widget.contains(event.target)) return;
+    cancelSearch();
   });
 
   const queryParam = new URLSearchParams(window.location.search).get('q');

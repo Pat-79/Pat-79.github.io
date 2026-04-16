@@ -1,0 +1,62 @@
+[
+  {
+    "id": "home-chapter-01",
+    "label": "Chapter 1: clown fish",
+    "start": 1,
+    "weight": 4
+  },
+  {
+    "id": "home-chapter-02",
+    "label": "Chapter 2: palmtrees beach sea",
+    "start": 18,
+    "weight": 5
+  },
+  {
+    "id": "home-chapter-03",
+    "label": "Chapter 3: indonesia lombok beach",
+    "start": 38,
+    "weight": 4
+  },
+  {
+    "id": "home-chapter-04",
+    "label": "Chapter 4: siquijor sunset",
+    "start": 78,
+    "weight": 4
+  },
+  {
+    "id": "home-chapter-05",
+    "label": "Chapter 5: bonaire turtle diving down",
+    "start": 104,
+    "weight": 1
+  },
+  {
+    "id": "home-chapter-06",
+    "label": "Chapter 6: bali takeoff plane",
+    "start": 144,
+    "weight": 2
+  },
+  {
+    "id": "home-chapter-07",
+    "label": "Chapter 7: val gardena snow mountains",
+    "start": 160,
+    "weight": 5
+  },
+  {
+    "id": "home-chapter-08",
+    "label": "Chapter 8: bonaire turtle closeup",
+    "start": 223,
+    "weight": 3
+  },
+  {
+    "id": "home-chapter-09",
+    "label": "Chapter 9: singapore gardens by the bay at night",
+    "start": 259,
+    "weight": 3
+  },
+  {
+    "id": "home-chapter-10",
+    "label": "Chapter 10: bali diving coral reef",
+    "start": 318,
+    "weight": 1
+  }
+]

@@ -59,6 +59,62 @@
     }
   }
 
+  function loadLandingChapters() {
+    return fetch('/assets/data/home-landing-chapters.json', { cache: 'no-cache' })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error('Failed to load chapter data');
+        }
+        return response.json();
+      })
+      .then(function (rows) {
+        if (!Array.isArray(rows)) {
+          return [];
+        }
+
+        return rows
+          .map(function (row) {
+            return {
+              start:  Number(row && row.start),
+              weight: Math.max(0, Number((row && row.weight) || 1)),
+            };
+          })
+          .filter(function (item) {
+            return isFinite(item.start) && item.start >= 0;
+          });
+      })
+      .catch(function () {
+        return [];
+      });
+  }
+
+  function randomiseStartByChapter(video, chapters) {
+    var duration = video.duration;
+    if (!(duration && isFinite(duration) && duration > 0)) {
+      return;
+    }
+
+    var minTailSeconds = 4;
+    var valid = (chapters || []).filter(function (c) {
+      return c.start < (duration - minTailSeconds) && c.weight > 0;
+    });
+
+    if (!valid.length) {
+      randomiseStart(video);
+      return;
+    }
+
+    var totalWeight = valid.reduce(function (sum, c) { return sum + c.weight; }, 0);
+    var roll = Math.random() * totalWeight;
+    var cumulative = 0;
+    var selected = valid[valid.length - 1];
+    for (var i = 0; i < valid.length; i++) {
+      cumulative += valid[i].weight;
+      if (roll < cumulative) { selected = valid[i]; break; }
+    }
+    video.currentTime = selected.start;
+  }
+
   function initHlsLandingVideo() {
     if (!hlsVideo) {
       return;
@@ -69,13 +125,17 @@
       return;
     }
 
+    var chaptersPromise = loadLandingChapters();
+
     // Safari and other native-HLS browsers.
     if (hlsVideo.canPlayType("application/vnd.apple.mpegurl")) {
       hlsVideo.src = hlsSource;
       hlsVideo.load();
       hlsVideo.addEventListener("loadedmetadata", function () {
-        randomiseStart(hlsVideo);
-        safeAutoplay(hlsVideo);
+        chaptersPromise.then(function (chapterStarts) {
+          randomiseStartByChapter(hlsVideo, chapterStarts);
+          safeAutoplay(hlsVideo);
+        });
       }, { once: true });
       return;
     }
@@ -96,12 +156,16 @@
 
       hls.on(window.Hls.Events.MANIFEST_PARSED, function () {
         if (hlsVideo.readyState >= 1 && isFinite(hlsVideo.duration) && hlsVideo.duration > 0) {
-          randomiseStart(hlsVideo);
-          safeAutoplay(hlsVideo);
+          chaptersPromise.then(function (chapterStarts) {
+            randomiseStartByChapter(hlsVideo, chapterStarts);
+            safeAutoplay(hlsVideo);
+          });
         } else {
           hlsVideo.addEventListener("loadedmetadata", function () {
-            randomiseStart(hlsVideo);
-            safeAutoplay(hlsVideo);
+            chaptersPromise.then(function (chapterStarts) {
+              randomiseStartByChapter(hlsVideo, chapterStarts);
+              safeAutoplay(hlsVideo);
+            });
           }, { once: true });
         }
       });
